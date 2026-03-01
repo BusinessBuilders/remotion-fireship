@@ -1,0 +1,60 @@
+{
+  "title": "Docker",
+  "subtitle": "// containerize everything",
+  "topic": "DevOps",
+  "sections": [
+    {
+      "heading": "What is Docker?",
+      "body": "Docker is a platform for building, running, and shipping applications in containers. Containers package your app with everything it needs to run consistently across environments.",
+      "bulletPoints": [
+        "Lightweight virtualization",
+        "Consistent dev-to-prod environments",
+        "Isolation without VM overhead"
+      ],
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "Dockerfile",
+      "body": "A Dockerfile defines the blueprint for your container image.",
+      "codeSnippet": {
+        "code": "FROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --production\nCOPY . .\nEXPOSE 3000\nCMD [\"node\", \"server.js\"]",
+        "language": "docker",
+        "filename": "Dockerfile",
+        "highlightLines": [1, 4, 7]
+      },
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "Docker vs VMs",
+      "comparison": {
+        "left": {
+          "label": "Virtual Machines",
+          "points": [
+            "Full OS per instance",
+            "Minutes to boot",
+            "Gigabytes of storage",
+            "Hardware-level isolation"
+          ]
+        },
+        "right": {
+          "label": "Docker Containers",
+          "points": [
+            "Shared OS kernel",
+            "Milliseconds to start",
+            "Megabytes of storage",
+            "Process-level isolation"
+          ]
+        }
+      },
+      "duration": 6,
+      "transition": "glitch"
+    }
+  ],
+  "style": {
+    "primaryColor": "#2496ED",
+    "accentColor": "#00d4ff"
+  },
+  "watermark": "fireship.io"
+}
