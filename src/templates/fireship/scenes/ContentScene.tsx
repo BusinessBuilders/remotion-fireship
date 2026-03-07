@@ -13,6 +13,10 @@ import type { ColorMap } from "../styles/theme";
 import { SectionTitle } from "../components/SectionTitle";
 import { AnimatedCode } from "../components/AnimatedCode";
 import { BrowserFrame } from "../components/BrowserFrame";
+import { GridBackground } from "../components/GridBackground";
+import { ParticleBackground } from "../components/ParticleBackground";
+import { GlowOrb } from "../components/GlowOrb";
+import { FloatingCode } from "../components/FloatingCode";
 import { useAnimatedText } from "../hooks/useAnimatedText";
 
 interface ContentSceneProps {
@@ -44,8 +48,13 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
   if (codeSnippet && section.body) {
     return (
       <AbsoluteFill style={{ backgroundColor: colors.bg }}>
+        <GridBackground color={colors.primary} opacity={0.03} animated />
+        <ParticleBackground colors={[colors.primary, colors.accent]} count={10} seed={`content-code-${section.heading}`} opacity={0.2} />
+        <GlowOrb colors={[colors.primary, colors.accent]} count={2} seed={`glow-cc-${section.heading}`} intensity={0.05} />
+        <FloatingCode color={colors.accent} seed={`float-cc-${section.heading}`} opacity={0.04} />
         <div
           style={{
+            position: "relative",
             display: "flex",
             height: "100%",
             padding: 60,
@@ -109,8 +118,12 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
     const resolvedImage = image.startsWith("http") ? image : staticFile(image);
     return (
       <AbsoluteFill style={{ backgroundColor: colors.bg }}>
+        <GridBackground color={colors.primary} opacity={0.03} animated />
+        <ParticleBackground colors={[colors.primary, colors.accent]} count={8} seed={`content-img-${section.heading}`} opacity={0.15} />
+        <GlowOrb colors={[colors.primary, colors.accent]} count={2} seed={`glow-ci-${section.heading}`} intensity={0.04} />
         <div
           style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             height: "100%",
@@ -125,17 +138,31 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
             fontStyle={fontBold}
             monoStyle={fontMono}
           />
-          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+          <div style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
             {section.imageFrame === "browser" ? (
               <BrowserFrame
                 src={image}
                 borderColor={colors.secondary}
               />
             ) : (
-              <div style={{ borderRadius: 12, overflow: "hidden" }}>
+              <div
+                style={{
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  boxShadow: `0 0 120px ${colors.primary}40, 0 0 60px ${colors.accent}20, 0 12px 48px rgba(0,0,0,0.8)`,
+                  border: `2px solid ${colors.primary}35`,
+                  opacity: spring({ fps, frame, config: { damping: 200 } }),
+                  transform: `scale(${interpolate(spring({ fps, frame, config: { damping: 200 } }), [0, 1], [0.88, 1])})`,
+                }}
+              >
                 <Img
                   src={resolvedImage}
-                  style={{ maxHeight: "100%", objectFit: "contain" }}
+                  style={{ maxHeight: 750, maxWidth: 1400, objectFit: "contain", display: "block" }}
                 />
               </div>
             )}
@@ -160,8 +187,13 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
   // Text-focused with staggered bullets
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>
+      <GridBackground color={colors.primary} opacity={0.03} animated />
+      <ParticleBackground colors={[colors.primary, colors.accent]} count={10} seed={`content-txt-${section.heading}`} opacity={0.2} />
+      <GlowOrb colors={[colors.primary, colors.accent]} count={2} seed={`glow-ct-${section.heading}`} intensity={0.05} />
+      <FloatingCode color={colors.accent} seed={`float-ct-${section.heading}`} opacity={0.04} />
       <div
         style={{
+          position: "relative",
           display: "flex",
           flexDirection: "column",
           height: "100%",

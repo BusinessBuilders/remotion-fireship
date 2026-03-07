@@ -1,0 +1,106 @@
+{
+  "title": "AI Agents",
+  "subtitle": "// autonomous code that thinks",
+  "topic": "AI Engineering",
+  "topicLogo": "13.png",
+  "sections": [
+    {
+      "heading": "What is an AI Agent?",
+      "body": "An LLM that can reason, plan, and take actions — looping until the job is done.",
+      "image": "11.png",
+      "imageFrame": "none",
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "Agent Architecture",
+      "body": "A request flows through the LLM brain, which picks tools to call. Results feed back through memory into the next reasoning step.",
+      "diagram": {
+        "nodes": [
+          { "label": "User", "icon": "code" },
+          { "label": "LLM Brain", "icon": "brain" },
+          { "label": "Tools", "icon": "search" },
+          { "label": "Memory", "icon": "database" },
+          { "label": "Response", "icon": "robot" }
+        ]
+      },
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "The ReAct Loop",
+      "codeSnippet": {
+        "code": "from openai import OpenAI\n\nclient = OpenAI()\ntools = [search_web, run_sql, read_file]\n\ndef agent_loop(task: str, max_steps: int = 10):\n    messages = [{\"role\": \"user\", \"content\": task}]\n\n    for step in range(max_steps):\n        response = client.chat.completions.create(\n            model=\"gpt-4o\",\n            messages=messages,\n            tools=tool_schemas,\n        )\n        msg = response.choices[0].message\n        messages.append(msg)\n\n        if not msg.tool_calls:\n            return msg.content  # done\n\n        for call in msg.tool_calls:\n            result = execute_tool(call)\n            messages.append(result)",
+        "language": "python",
+        "filename": "agent.py",
+        "highlightLines": [10, 11, 12, 13, 18, 21, 22]
+      },
+      "duration": 8,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Tool Calling",
+      "body": "The LLM outputs structured JSON that maps to real function calls — giving it hands to interact with the world.",
+      "image": "12.png",
+      "imageFrame": "none",
+      "duration": 6,
+      "transition": "fade"
+    },
+    {
+      "heading": "Memory & RAG",
+      "body": "Embed past interactions into a vector database. On each turn, retrieve the most relevant memories and inject them as context.",
+      "image": "15.png",
+      "imageFrame": "none",
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "Chatbot vs Agent",
+      "comparison": {
+        "left": {
+          "label": "Chatbot",
+          "points": [
+            "Single request-response turn",
+            "No tool access or side effects",
+            "Stateless — forgets everything",
+            "Can only generate text"
+          ]
+        },
+        "right": {
+          "label": "AI Agent",
+          "points": [
+            "Multi-step reasoning loop",
+            "Calls APIs, databases, code runners",
+            "Persistent memory across sessions",
+            "Takes real actions in the world"
+          ]
+        }
+      },
+      "duration": 6,
+      "transition": "glitch"
+    },
+    {
+      "heading": "The Agent Stack",
+      "body": "Pick the right framework, guardrails, and eval strategy.",
+      "image": "14.png",
+      "imageFrame": "none",
+      "bulletPoints": [
+        "Frameworks — LangGraph, CrewAI, Claude Agent SDK",
+        "Guardrails — input validation, cost limits, output filtering",
+        "Memory — vector DB for long-term, Redis for short-term",
+        "Eval — trace every step, measure task completion rate"
+      ],
+      "duration": 7,
+      "transition": "slide"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a1a",
+    "primaryColor": "#7C3AED",
+    "accentColor": "#A78BFA",
+    "secondaryColor": "#1a1040",
+    "textColor": "#ffffff",
+    "mutedColor": "#b0b0c8"
+  },
+  "watermark": ""
+}

@@ -1,4 +1,4 @@
-import { AbsoluteFill, Audio, staticFile } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
@@ -12,11 +12,16 @@ import { FONT_FAMILIES } from "./styles/fonts";
 
 import { ProgressBar } from "./components/ProgressBar";
 import { glitch } from "./components/GlitchTransition";
+import { LightLeak } from "./components/LightLeak";
 
 import { IntroScene } from "./scenes/IntroScene";
 import { ContentScene } from "./scenes/ContentScene";
 import { CodeScene } from "./scenes/CodeScene";
 import { ComparisonScene } from "./scenes/ComparisonScene";
+import { DiagramScene } from "./scenes/DiagramScene";
+import { StatsScene } from "./scenes/StatsScene";
+import { QuoteScene } from "./scenes/QuoteScene";
+import { TimelineScene } from "./scenes/TimelineScene";
 import { OutroScene } from "./scenes/OutroScene";
 
 const { INTRO_SECONDS, OUTRO_SECONDS, TRANSITION_FRAMES, FPS } = TIMING;
@@ -51,6 +56,7 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
     voiceoverAudio,
     style,
     watermark,
+    lightLeaks,
   } = props;
 
   const colors = buildColors(style);
@@ -63,6 +69,62 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
   const sectionStartFrames = getSectionStartFrames(sections, FPS);
 
   const renderScene = (section: typeof sections[number], index: number) => {
+    if (section.stats) {
+      return (
+        <StatsScene
+          key={index}
+          heading={section.heading}
+          stats={section.stats}
+          colors={colors}
+          fontBold={fontBold}
+          fontRegular={fontRegular}
+          fontMono={fontMono}
+        />
+      );
+    }
+
+    if (section.quote) {
+      return (
+        <QuoteScene
+          key={index}
+          heading={section.heading}
+          quote={section.quote}
+          colors={colors}
+          fontBold={fontBold}
+          fontRegular={fontRegular}
+          fontMono={fontMono}
+        />
+      );
+    }
+
+    if (section.timeline) {
+      return (
+        <TimelineScene
+          key={index}
+          heading={section.heading}
+          timeline={section.timeline}
+          colors={colors}
+          fontBold={fontBold}
+          fontRegular={fontRegular}
+          fontMono={fontMono}
+        />
+      );
+    }
+
+    if (section.diagram) {
+      return (
+        <DiagramScene
+          key={index}
+          section={section}
+          diagram={section.diagram}
+          colors={colors}
+          fontBold={fontBold}
+          fontRegular={fontRegular}
+          fontMono={fontMono}
+        />
+      );
+    }
+
     if (section.comparison) {
       return (
         <ComparisonScene
@@ -99,6 +161,14 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
       />
     );
   };
+
+  // Calculate light leak positions: every 2-3 transitions, alternating
+  const lightLeakIndices = new Set<number>();
+  if (lightLeaks) {
+    for (let i = 0; i < sections.length; i += 3) {
+      lightLeakIndices.add(i);
+    }
+  }
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>
@@ -151,6 +221,27 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
           />
         </TransitionSeries.Sequence>
       </TransitionSeries>
+
+      {/* Light Leak overlays — placed over select transitions */}
+      {lightLeaks &&
+        [...lightLeakIndices].map((i) => {
+          const startFrame = sectionStartFrames[i + 1] ?? 0;
+          const leakDuration = TRANSITION_FRAMES + 30;
+          return (
+            <Sequence
+              key={`ll-${i}`}
+              from={Math.max(0, startFrame - 10)}
+              durationInFrames={leakDuration}
+            >
+              <LightLeak
+                color1={colors.primary}
+                color2={colors.accent}
+                seed={`leak-${i}`}
+                intensity={0.3}
+              />
+            </Sequence>
+          );
+        })}
 
       {/* Overlay: ProgressBar */}
       <ProgressBar

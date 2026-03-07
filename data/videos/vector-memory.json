@@ -1,0 +1,98 @@
+{
+  "title": "Vector Memory",
+  "subtitle": "// giving agents a brain",
+  "topic": "AI Infrastructure",
+  "topicLogo": "11.png",
+  "sections": [
+    {
+      "heading": "Why Agents Need Memory",
+      "body": "LLMs have a fixed context window that vanishes after each request. Embeddings convert text into vectors that capture semantic meaning — enabling long-term recall.",
+      "image": "11.png",
+      "imageFrame": "none",
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Embedding Pipeline",
+      "body": "Text flows through an embedding model into a vector database, where similarity search retrieves the most relevant context.",
+      "diagram": {
+        "nodes": [
+          { "label": "Text", "icon": "code" },
+          { "label": "Embed", "icon": "cube" },
+          { "label": "Vector DB", "icon": "database" },
+          { "label": "Search", "icon": "search" },
+          { "label": "Agent", "icon": "robot" }
+        ]
+      },
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "Embed & Store",
+      "codeSnippet": {
+        "code": "import openai\nfrom pinecone import Pinecone\n\npc = Pinecone(api_key=\"pk-...\")\nindex = pc.Index(\"agent-memory\")\n\ndef memorize(text: str, metadata: dict):\n    embedding = openai.embeddings.create(\n        model=\"text-embedding-3-small\",\n        input=text\n    ).data[0].embedding\n\n    index.upsert(vectors=[{\n        \"id\": metadata[\"id\"],\n        \"values\": embedding,\n        \"metadata\": {\"text\": text, **metadata}\n    }])",
+        "language": "python",
+        "filename": "memory.py",
+        "highlightLines": [8, 9, 10, 13, 14, 15]
+      },
+      "duration": 8,
+      "transition": "fade"
+    },
+    {
+      "heading": "RAG Retrieval",
+      "body": "Embed the query, search for similar memories, and inject the best matches into the prompt as context.",
+      "image": "13.png",
+      "imageFrame": "none",
+      "duration": 6,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Stateless vs Memory",
+      "comparison": {
+        "left": {
+          "label": "Stateless Agent",
+          "points": [
+            "Forgets after each request",
+            "Repeats questions constantly",
+            "No user personalization",
+            "Limited to context window"
+          ]
+        },
+        "right": {
+          "label": "Memory-Augmented",
+          "points": [
+            "Recalls past conversations",
+            "Builds on prior knowledge",
+            "Adapts to user preferences",
+            "Scales beyond token limits"
+          ]
+        }
+      },
+      "duration": 6,
+      "transition": "glitch"
+    },
+    {
+      "heading": "Memory Strategies",
+      "body": "Choose your architecture based on recency, cost, and relevance.",
+      "image": "15.png",
+      "imageFrame": "none",
+      "bulletPoints": [
+        "Sliding Window — keep last N messages",
+        "Summarization — compress old context",
+        "Vector Recall — embed everything, retrieve by relevance",
+        "Hybrid — combine all three for production"
+      ],
+      "duration": 7,
+      "transition": "slide"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a1a",
+    "primaryColor": "#7C3AED",
+    "accentColor": "#A78BFA",
+    "secondaryColor": "#1a1040",
+    "textColor": "#ffffff",
+    "mutedColor": "#b0b0c8"
+  },
+  "watermark": ""
+}

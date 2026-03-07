@@ -10,6 +10,10 @@ import type { ComparisonProps } from "../schema";
 import type { ColorMap } from "../styles/theme";
 import { GradientText } from "../components/GradientText";
 import { AnimatedCode } from "../components/AnimatedCode";
+import { GridBackground } from "../components/GridBackground";
+import { ParticleBackground } from "../components/ParticleBackground";
+import { GlowOrb } from "../components/GlowOrb";
+import { ConstellationBg } from "../components/ConstellationBg";
 
 interface ComparisonSceneProps {
   heading: string;
@@ -132,6 +136,11 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>
+      <GridBackground color={colors.primary} opacity={0.03} animated />
+      <ParticleBackground colors={[colors.primary, colors.accent]} count={8} seed={`comp-${heading}`} opacity={0.15} />
+      <ConstellationBg color={colors.accent} nodeCount={20} seed={`const-${heading}`} opacity={0.06} />
+      <GlowOrb colors={[colors.accent, colors.primary]} count={2} seed={`glow-comp-${heading}`} intensity={0.04} />
+
       {/* Header */}
       <div
         style={{
@@ -142,6 +151,7 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
           marginTop: 60,
           opacity: headerSpring,
           transform: `translateY(${headerY}px)`,
+          position: "relative",
         }}
       >
         {heading}
@@ -150,6 +160,7 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
       {/* Side by side */}
       <div
         style={{
+          position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "flex-start",

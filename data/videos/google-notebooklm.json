@@ -1,0 +1,141 @@
+{
+  "title": "Google NotebookLM",
+  "subtitle": "// your documents, but smarter",
+  "topic": "AI Tools",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "What is NotebookLM?",
+      "body": "Google's AI research assistant that only reads YOUR documents. No hallucinations, no internet noise — just source-grounded answers with inline citations.",
+      "bulletPoints": [
+        "Built on Gemini 2.5 Pro with 2M token context window",
+        "Accepts PDFs, Docs, Slides, YouTube, websites, audio",
+        "Free tier: 100 notebooks, 50 sources of 500K words each",
+        "Your data is never used to train AI models"
+      ],
+      "image": "generated/google-notebooklm-0.png",
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "The RAG Engine",
+      "body": "NotebookLM uses Retrieval-Augmented Generation to ground every answer in your actual sources.",
+      "diagram": {
+        "nodes": [
+          { "label": "Upload Sources", "icon": "cloud" },
+          { "label": "RAG Retrieval", "icon": "search" },
+          { "label": "Gemini 2.5 Pro", "icon": "brain" },
+          { "label": "Grounded Answer", "icon": "shield" }
+        ]
+      },
+      "duration": 6,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Audio Overviews",
+      "body": "The feature that broke the internet. Two AI hosts generate a podcast-style deep dive from your documents — complete with banter, interruptions, and genuine insight.",
+      "bulletPoints": [
+        "Went viral September 2024 — sounds eerily human",
+        "Spotify Wrapped 2024 used it for personalized recaps",
+        "Interactive mode: join the conversation and ask questions",
+        "Customizable tone, length, even humor level"
+      ],
+      "image": "generated/google-notebooklm-2.png",
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "By the Numbers",
+      "stats": {
+        "items": [
+          { "label": "Context Window", "value": 2, "suffix": "M tokens" },
+          { "label": "Languages", "value": 80, "suffix": "+" },
+          { "label": "Sources per Notebook", "value": 50, "suffix": " free" },
+          { "label": "Words per Source", "value": 500, "suffix": "K" }
+        ]
+      },
+      "duration": 5,
+      "transition": "slide"
+    },
+    {
+      "heading": "Key Insight",
+      "quote": {
+        "text": "The future of AI assistance isn't about one tool replacing another — it's about specialized tools that excel at specific tasks.",
+        "author": "Dr. Sarah Hooker",
+        "role": "AI Researcher, Former Google Brain Team"
+      },
+      "duration": 5,
+      "transition": "glitch"
+    },
+    {
+      "heading": "The Evolution",
+      "timeline": {
+        "events": [
+          { "year": "May 2023", "label": "Launched as Project Tailwind" },
+          { "year": "Sep 2024", "label": "Audio Overviews go viral" },
+          { "year": "Oct 2024", "label": "Exits experimental status" },
+          { "year": "Dec 2024", "label": "NotebookLM Plus for enterprise" },
+          { "year": "May 2025", "label": "Video Overviews debut" },
+          { "year": "Nov 2025", "label": "Infographics & Slide Decks" }
+        ]
+      },
+      "duration": 6,
+      "transition": "wipe"
+    },
+    {
+      "heading": "NotebookLM vs ChatGPT",
+      "comparison": {
+        "left": {
+          "label": "NotebookLM",
+          "points": [
+            "Source-grounded answers only",
+            "Inline citations to your docs",
+            "AI podcasts & video summaries",
+            "Free with generous limits"
+          ]
+        },
+        "right": {
+          "label": "ChatGPT",
+          "points": [
+            "General-purpose, uses training data",
+            "No guaranteed source citations",
+            "Creative writing & code generation",
+            "$20/mo for GPT-4 access"
+          ]
+        }
+      },
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "Under the Hood",
+      "body": "NotebookLM is RAG at scale. Here's the Gemini API equivalent of what it does.",
+      "codeSnippet": {
+        "code": "import google.generativeai as genai\n\ngenai.configure(api_key=\"YOUR_KEY\")\nmodel = genai.GenerativeModel(\"gemini-2.0-flash\")\n\n# Upload sources — just like NotebookLM\ndoc = genai.upload_file(\"research.pdf\")\n\n# Ask questions grounded in YOUR data\nresponse = model.generate_content(\n  [\"Summarize the key findings\", doc]\n)\nprint(response.text)  # With citations",
+        "language": "python",
+        "filename": "notebooklm_rag.py"
+      },
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Takeaway",
+      "body": "NotebookLM isn't trying to be ChatGPT. It's the anti-hallucination tool — a personal AI that knows exactly what you know, and nothing else. And it's free.",
+      "bulletPoints": [
+        "Perfect for researchers, students, and knowledge workers",
+        "Audio & Video Overviews transform passive docs into active learning",
+        "Gemini integration turns notebooks into reasoning engines"
+      ],
+      "duration": 5,
+      "transition": "fade"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a0a",
+    "primaryColor": "#FF6B00",
+    "accentColor": "#00d4ff",
+    "secondaryColor": "#1a1a2e",
+    "textColor": "#ffffff",
+    "mutedColor": "#a0a0b0"
+  }
+}

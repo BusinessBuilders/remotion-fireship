@@ -210,6 +210,7 @@ export const RemotionVideo = () => {
               },
             ],
             backgroundMusicVolume: 0.3,
+            lightLeaks: true,
             style: {
               backgroundColor: "#0a0a0a",
               primaryColor: "#2496ED",

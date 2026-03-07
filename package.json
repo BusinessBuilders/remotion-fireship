@@ -11,7 +11,9 @@
     "server": "ts-node server.tsx",
     "test": "eslint src --ext ts,tsx,js,jsx && tsc",
     "lint": "eslint --ext .ts,.tsx . --max-warnings 0",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "generate": "ts-node scripts/generate-video.ts",
+    "render:fireship": "npx remotion render src/index.tsx Fireship"
   },
   "repository": {},
   "license": "UNLICENSED",
@@ -21,6 +23,7 @@
     "@remotion/cli": "4.0.332",
     "@remotion/eslint-config": "4.0.332",
     "@remotion/google-fonts": "4.0.332",
+    "@remotion/lottie": "^4.0.332",
     "@remotion/renderer": "4.0.332",
     "@remotion/transitions": "4.0.332",
     "@types/express": "^5.0.3",
@@ -32,6 +35,7 @@
     "eslint": "^9.33.0",
     "express": "^5.1.0",
     "lodash": "^4.17.21",
+    "lottie-web": "^5.13.0",
     "normalize-svg-path": "^1.1.0",
     "parse-svg-path": "^0.1.2",
     "prism-react-renderer": "^2.4.1",

@@ -19,6 +19,47 @@ const comparisonSchema = z.object({
   right: comparisonSideSchema,
 });
 
+const diagramNodeSchema = z.object({
+  label: z.string(),
+  icon: z
+    .enum([
+      "brain", "database", "search", "cube", "robot", "code",
+      "cloud", "api", "lock", "lightning", "server", "terminal",
+      "git", "docker", "kubernetes", "aws", "globe", "chart",
+      "shield", "rocket",
+    ])
+    .optional(),
+});
+
+const diagramSchema = z.object({
+  nodes: z.array(diagramNodeSchema).min(2),
+});
+
+const statsItemSchema = z.object({
+  label: z.string(),
+  value: z.number(),
+  suffix: z.string().optional(),
+});
+
+const statsSchema = z.object({
+  items: z.array(statsItemSchema).min(2).max(4),
+});
+
+const quoteSchema = z.object({
+  text: z.string(),
+  author: z.string(),
+  role: z.string().optional(),
+});
+
+const timelineEventSchema = z.object({
+  year: z.string(),
+  label: z.string(),
+});
+
+const timelineSchema = z.object({
+  events: z.array(timelineEventSchema).min(2).max(6),
+});
+
 const transitionEnum = z
   .enum(["slide", "fade", "wipe", "zoom", "glitch"])
   .default("fade");
@@ -35,6 +76,10 @@ const sectionSchema = z.object({
   imageFrame: imageFrameEnum,
   codeSnippet: codeSnippetSchema.optional(),
   comparison: comparisonSchema.optional(),
+  diagram: diagramSchema.optional(),
+  stats: statsSchema.optional(),
+  quote: quoteSchema.optional(),
+  timeline: timelineSchema.optional(),
   duration: z.number().min(1).default(5),
   transition: transitionEnum,
 });
@@ -61,6 +106,7 @@ export const fireshipSchema = z.object({
   voiceoverAudio: z.string().optional(),
   style: styleSchema.default({}),
   watermark: z.string().optional(),
+  lightLeaks: z.boolean().default(true),
 });
 
 export type FireshipProps = z.infer<typeof fireshipSchema>;
@@ -68,6 +114,11 @@ export type SectionProps = z.infer<typeof sectionSchema>;
 export type CodeSnippetProps = z.infer<typeof codeSnippetSchema>;
 export type StyleProps = z.infer<typeof styleSchema>;
 export type ComparisonProps = z.infer<typeof comparisonSchema>;
+export type DiagramProps = z.infer<typeof diagramSchema>;
+export type DiagramNodeProps = z.infer<typeof diagramNodeSchema>;
+export type StatsProps = z.infer<typeof statsSchema>;
+export type QuoteProps = z.infer<typeof quoteSchema>;
+export type TimelineProps = z.infer<typeof timelineSchema>;
 
 // Shared timing constants — single source of truth
 export const TIMING = {
