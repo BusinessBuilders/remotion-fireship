@@ -35,7 +35,8 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
   fontMono,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
   const animatedBody = useAnimatedText(section.body, {
     startFrame: 20,
     speed: 1.5,
@@ -56,13 +57,14 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           style={{
             position: "relative",
             display: "flex",
+            flexDirection: isPortrait ? "column" : "row",
             height: "100%",
-            padding: 60,
-            gap: 40,
+            padding: isPortrait ? 40 : 60,
+            gap: isPortrait ? 24 : 40,
           }}
         >
-          {/* Code panel — 55% */}
-          <div style={{ flex: "0 0 55%", display: "flex", flexDirection: "column", gap: 20 }}>
+          {/* Code panel */}
+          <div style={{ flex: isPortrait ? "none" : "0 0 55%", display: "flex", flexDirection: "column", gap: 20 }}>
             <SectionTitle
               title={section.heading}
               accentColor={colors.primary}
@@ -78,10 +80,10 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
             />
           </div>
 
-          {/* Text panel — 45% */}
+          {/* Text panel */}
           <div
             style={{
-              flex: "0 0 40%",
+              flex: isPortrait ? "none" : "0 0 40%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -91,7 +93,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
             <div
               style={{
                 ...fontRegular,
-                fontSize: 28,
+                fontSize: isPortrait ? 22 : 28,
                 color: colors.muted,
                 lineHeight: 1.6,
               }}
@@ -127,7 +129,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            padding: "50px 80px",
+            padding: isPortrait ? "40px 50px" : "50px 80px",
             gap: 30,
           }}
         >
@@ -162,7 +164,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
               >
                 <Img
                   src={resolvedImage}
-                  style={{ maxHeight: 750, maxWidth: 1400, objectFit: "contain", display: "block" }}
+                  style={{ maxHeight: isPortrait ? 500 : 750, maxWidth: isPortrait ? 900 : 1400, objectFit: "contain", display: "block" }}
                 />
               </div>
             )}
@@ -197,8 +199,8 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          padding: "80px 120px",
-          gap: 40,
+          padding: isPortrait ? "50px 50px" : "80px 120px",
+          gap: isPortrait ? 24 : 40,
         }}
       >
         <SectionTitle
@@ -212,7 +214,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           <div
             style={{
               ...fontRegular,
-              fontSize: 32,
+              fontSize: isPortrait ? 24 : 32,
               color: colors.muted,
               lineHeight: 1.6,
             }}

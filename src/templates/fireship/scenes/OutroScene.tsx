@@ -28,7 +28,8 @@ export const OutroScene: React.FC<OutroSceneProps> = ({
   watermark,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   const mainSpring = spring({ fps, frame, config: { damping: 200 } });
   const taglineSpring = spring({
@@ -80,7 +81,7 @@ export const OutroScene: React.FC<OutroSceneProps> = ({
         <div
           style={{
             ...fontBold,
-            fontSize: 90,
+            fontSize: isPortrait ? 56 : 90,
             color: colors.text,
             textAlign: "center",
             opacity: mainSpring,
@@ -90,7 +91,7 @@ export const OutroScene: React.FC<OutroSceneProps> = ({
         >
           {title}
           <br />
-          <GradientText colors={[colors.primary, colors.accent]} fontSize={90}>
+          <GradientText colors={[colors.primary, colors.accent]} fontSize={isPortrait ? 56 : 90}>
             in 100 Seconds
           </GradientText>
         </div>

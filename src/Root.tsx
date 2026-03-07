@@ -6,6 +6,7 @@ import {
   Fireship,
   fireshipSchema,
   calculateFireshipMetadata,
+  calculateFireshipTikTokMetadata,
 } from "./templates/fireship/index";
 import { Remotion } from "./Video/index";
 import { CheckOnGithub } from "./Video/CheckOnGithub/Github";
@@ -224,6 +225,46 @@ export const RemotionVideo = () => {
           }}
           width={1920}
           height={1080}
+          fps={30}
+          durationInFrames={300}
+        />
+        <Composition
+          id="FireshipTikTok"
+          component={Fireship}
+          schema={fireshipSchema}
+          calculateMetadata={calculateFireshipTikTokMetadata}
+          defaultProps={{
+            title: "Docker",
+            subtitle: "// containerize everything",
+            topic: "DevOps",
+            sections: [
+              {
+                heading: "What is Docker?",
+                body: "Docker packages apps in containers for consistent deployment.",
+                bulletPoints: [
+                  "Lightweight virtualization",
+                  "Consistent environments",
+                ],
+                duration: 5,
+                transition: "slide",
+                imageFrame: "none",
+              },
+            ],
+            backgroundMusicVolume: 0.3,
+            lightLeaks: true,
+            style: {
+              backgroundColor: "#0a0a0a",
+              primaryColor: "#2496ED",
+              accentColor: "#00d4ff",
+              secondaryColor: "#1a1a2e",
+              textColor: "#ffffff",
+              mutedColor: "#a0a0b0",
+              fontFamily: "Inter",
+              codeFontFamily: "JetBrains Mono",
+            },
+          }}
+          width={1080}
+          height={1920}
           fps={30}
           durationInFrames={300}
         />

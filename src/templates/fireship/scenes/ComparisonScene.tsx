@@ -122,7 +122,8 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
   fontRegular,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   const headerSpring = spring({ fps, frame, config: { damping: 200 } });
   const headerY = interpolate(headerSpring, [0, 1], [-60, 0]);
@@ -145,10 +146,10 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
       <div
         style={{
           ...fontBold,
-          fontSize: 56,
+          fontSize: isPortrait ? 40 : 56,
           color: colors.text,
           textAlign: "center",
-          marginTop: 60,
+          marginTop: isPortrait ? 40 : 60,
           opacity: headerSpring,
           transform: `translateY(${headerY}px)`,
           position: "relative",
@@ -162,12 +163,13 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
         style={{
           position: "relative",
           display: "flex",
+          flexDirection: isPortrait ? "column" : "row",
           justifyContent: "center",
-          alignItems: "flex-start",
-          gap: 60,
-          padding: "40px 80px",
-          marginTop: 20,
-          height: "75%",
+          alignItems: isPortrait ? "center" : "flex-start",
+          gap: isPortrait ? 24 : 60,
+          padding: isPortrait ? "20px 40px" : "40px 80px",
+          marginTop: isPortrait ? 10 : 20,
+          height: isPortrait ? "80%" : "75%",
         }}
       >
         <ComparisonPanel
@@ -186,7 +188,7 @@ export const ComparisonScene: React.FC<ComparisonSceneProps> = ({
         <div
           style={{
             ...fontBold,
-            fontSize: 64,
+            fontSize: isPortrait ? 44 : 64,
             opacity: vsSpring,
             transform: `scale(${vsScale})`,
             alignSelf: "center",

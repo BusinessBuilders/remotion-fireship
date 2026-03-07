@@ -30,7 +30,8 @@ export const IntroScene: React.FC<IntroSceneProps> = ({
   fontMono,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   const logoSpring = spring({ fps, frame, config: { damping: 200 } });
   const titleSpring = spring({
@@ -81,7 +82,7 @@ export const IntroScene: React.FC<IntroSceneProps> = ({
         <div
           style={{
             ...fontBold,
-            fontSize: 100,
+            fontSize: isPortrait ? 64 : 100,
             color: colors.text,
             opacity: titleSpring,
             transform: `translateY(${titleY}px)`,
@@ -99,7 +100,7 @@ export const IntroScene: React.FC<IntroSceneProps> = ({
           <div
             style={{
               ...fontMono,
-              fontSize: 36,
+              fontSize: isPortrait ? 24 : 36,
               color: colors.primary,
               opacity: subtitleSpring,
               transform: `translateY(${subtitleY}px)`,

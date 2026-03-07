@@ -30,7 +30,8 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   fontMono,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   // Split text into words for staggered reveal
   const words = quote.text.split(" ");
@@ -73,7 +74,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
           height: "100%",
           justifyContent: "center",
           alignItems: "center",
-          padding: "80px 140px",
+          padding: isPortrait ? "60px 50px" : "80px 140px",
           gap: 40,
         }}
       >
@@ -81,7 +82,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
         <div
           style={{
             ...fontBold,
-            fontSize: 160,
+            fontSize: isPortrait ? 120 : 160,
             lineHeight: 0.6,
             opacity: quoteMarkSpring * 0.3,
             transform: `scale(${quoteMarkScale})`,
@@ -95,11 +96,11 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
         <div
           style={{
             ...fontBold,
-            fontSize: 48,
+            fontSize: isPortrait ? 34 : 48,
             color: colors.text,
             textAlign: "center",
             lineHeight: 1.5,
-            maxWidth: 1400,
+            maxWidth: isPortrait ? 900 : 1400,
           }}
         >
           {words.map((word, i) => {

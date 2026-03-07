@@ -33,7 +33,8 @@ const StatCard: React.FC<{
   fontMono: CSSProperties;
   frame: number;
   fps: number;
-}> = ({ label, value, suffix, index, colors, fontBold, fontRegular, fontMono, frame, fps }) => {
+  isPortrait: boolean;
+}> = ({ label, value, suffix, index, colors, fontBold, fontRegular, fontMono, frame, fps, isPortrait }) => {
   const delay = 15 + index * 12;
   const cardSpring = spring({
     fps,
@@ -56,14 +57,14 @@ const StatCard: React.FC<{
   return (
     <div
       style={{
-        flex: 1,
+        flex: isPortrait ? "0 0 calc(50% - 12px)" : 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 16,
+        gap: isPortrait ? 10 : 16,
         opacity: cardSpring,
         transform: `translateY(${cardY}px)`,
-        padding: "40px 20px",
+        padding: isPortrait ? "24px 16px" : "40px 20px",
         borderRadius: 20,
         background: `linear-gradient(135deg, ${colors.secondary}80, ${colors.bg}60)`,
         border: `1px solid ${accentColor}30`,
@@ -74,14 +75,14 @@ const StatCard: React.FC<{
       <div
         style={{
           ...fontBold,
-          fontSize: 72,
+          fontSize: isPortrait ? 52 : 72,
           color: accentColor,
           lineHeight: 1,
         }}
       >
         {displayValue.toLocaleString()}
         {suffix && (
-          <span style={{ ...fontMono, fontSize: 40, color: colors.text }}>
+          <span style={{ ...fontMono, fontSize: isPortrait ? 28 : 40, color: colors.text }}>
             {suffix}
           </span>
         )}
@@ -113,7 +114,8 @@ export const StatsScene: React.FC<StatsSceneProps> = ({
   fontMono,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>
@@ -137,8 +139,8 @@ export const StatsScene: React.FC<StatsSceneProps> = ({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          padding: "60px 100px",
-          gap: 50,
+          padding: isPortrait ? "40px 40px" : "60px 100px",
+          gap: isPortrait ? 30 : 50,
         }}
       >
         <SectionTitle
@@ -153,9 +155,10 @@ export const StatsScene: React.FC<StatsSceneProps> = ({
           style={{
             flex: 1,
             display: "flex",
+            flexWrap: isPortrait ? "wrap" : "nowrap",
             alignItems: "center",
             justifyContent: "center",
-            gap: 30,
+            gap: isPortrait ? 20 : 30,
           }}
         >
           {stats.items.map((item, i) => (
@@ -171,6 +174,7 @@ export const StatsScene: React.FC<StatsSceneProps> = ({
               fontMono={fontMono}
               frame={frame}
               fps={fps}
+              isPortrait={isPortrait}
             />
           ))}
         </div>

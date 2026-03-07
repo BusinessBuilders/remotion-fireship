@@ -31,7 +31,8 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
   fontMono,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const isPortrait = height > width;
 
   const bodySpring = spring({
     fps,
@@ -62,7 +63,7 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          padding: "60px 100px",
+          padding: isPortrait ? "40px 40px" : "60px 100px",
           gap: 30,
         }}
       >

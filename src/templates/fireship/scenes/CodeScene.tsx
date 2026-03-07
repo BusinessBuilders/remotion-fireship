@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import type { SectionProps } from "../schema";
 import type { ColorMap } from "../styles/theme";
 import { SectionTitle } from "../components/SectionTitle";
@@ -21,6 +21,8 @@ export const CodeScene: React.FC<CodeSceneProps> = ({
   fontBold,
   fontMono,
 }) => {
+  const { height, width } = useVideoConfig();
+  const isPortrait = height > width;
   const snippet = section.codeSnippet;
   if (!snippet) {
     return <AbsoluteFill style={{ backgroundColor: colors.bg }} />;
@@ -38,7 +40,7 @@ export const CodeScene: React.FC<CodeSceneProps> = ({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          padding: "60px 100px",
+          padding: isPortrait ? "40px 40px" : "60px 100px",
           gap: 30,
         }}
       >
