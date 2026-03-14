@@ -169,6 +169,41 @@ git checkout master && git merge feature/visual-improvements
 
 ---
 
+## Improvement 7: Update /makevid and /makevid-long slash commands
+
+Files: `.claude/commands/makevid.md` and `.claude/commands/makevid-long.md`
+
+After all visual improvements are implemented and verified, update BOTH slash commands to reflect the new visual standards so every future video is generated correctly. Changes to make in both files:
+
+- Update any image sizing guidance to reflect the new smaller sizes (maxHeight 450px, side-by-side layout)
+- Add notes about body text sizing (30px+ for readability)
+- Add guidance about title glow effects being automatic (no JSON changes needed)
+- Update transition recommendations if transition timing changed
+- Add any new best practices discovered during implementation
+
+Also update the CLAUDE.md project instructions if any key values changed (image sizes, font sizes, timing constants).
+
+Then sync the updated commands back to the global location:
+```bash
+cp ~/remotion-fireship/.claude/commands/makevid.md ~/.claude/commands/makevid.md
+cp ~/remotion-fireship/.claude/commands/makevid-long.md ~/.claude/commands/makevid-long.md
+cp ~/remotion-fireship/.claude/commands/mergevid.md ~/.claude/commands/mergevid.md
+```
+
+**Commit after this change.**
+
+---
+
+## Final: Push everything
+
+```bash
+git push origin feature/visual-improvements
+```
+
+Report all commits made and their descriptions so the user can revert any individual one.
+
+---
+
 ## What NOT to change
 - Do NOT modify the JSON schema structure (keep backward compat with existing videos)
 - Do NOT change scene routing logic in Fireship.tsx
