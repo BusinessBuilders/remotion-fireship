@@ -1,0 +1,201 @@
+{
+  "title": "Claude Code",
+  "subtitle": "// the terminal took over",
+  "topic": "AI Coding",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "What is Claude Code?",
+      "body": "Anthropic's agentic coding tool that lives in your terminal. It reads your entire codebase, edits files, runs commands, and creates PRs \u2014 all from natural language. Now with Voice Mode, you can literally talk to your terminal.",
+      "bulletPoints": [
+        "Reads and reasons across your full codebase",
+        "Subagents for parallel task delegation",
+        "Voice Mode: /voice + hold spacebar to speak",
+        "CLI, VS Code, JetBrains, desktop, and web"
+      ],
+      "image": "generated/claude-code-updates-1.png",
+      "duration": 7,
+      "transition": "slide",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "How It Works",
+      "body": "Claude Code runs as an agent loop \u2014 you describe the task, it explores, plans, edits, tests, and commits.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "Prompt",
+            "icon": "terminal"
+          },
+          {
+            "label": "Codebase Scan",
+            "icon": "search"
+          },
+          {
+            "label": "Plan & Edit",
+            "icon": "brain"
+          },
+          {
+            "label": "Test & Commit",
+            "icon": "git"
+          }
+        ]
+      },
+      "duration": 5,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "By the Numbers",
+      "body": "",
+      "stats": {
+        "items": [
+          {
+            "label": "ARR (Feb 2026)",
+            "value": 2.5,
+            "suffix": "B"
+          },
+          {
+            "label": "SWE-bench",
+            "value": 80.9,
+            "suffix": "%"
+          },
+          {
+            "label": "Changelog Updates",
+            "value": 176,
+            "suffix": ""
+          },
+          {
+            "label": "WAU Growth",
+            "value": 2,
+            "suffix": "x"
+          }
+        ]
+      },
+      "duration": 5,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "The Evolution",
+      "body": "",
+      "timeline": {
+        "events": [
+          {
+            "year": "Feb 2025",
+            "label": "Research preview launches"
+          },
+          {
+            "year": "May 2025",
+            "label": "GA with Claude 4 + IDE plugins"
+          },
+          {
+            "year": "Nov 2025",
+            "label": "$1B ARR, Opus 4.5 goes viral"
+          },
+          {
+            "year": "Jan 2026",
+            "label": "Claude Cowork for knowledge work"
+          },
+          {
+            "year": "Feb 2026",
+            "label": "Opus 4.6 + Sonnet 4.6 + Security"
+          },
+          {
+            "year": "Mar 2026",
+            "label": "Voice Mode, $2.5B ARR"
+          }
+        ]
+      },
+      "duration": 6,
+      "transition": "slide",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "What's New in 2026",
+      "body": "The latest updates push Claude Code from coding assistant to full development platform.",
+      "bulletPoints": [
+        "Voice Mode: talk to your terminal (Mar 2026)",
+        "Claude Code Security: AI vuln scanning",
+        "Agent Teams: parallel multi-instance coding",
+        "1M token context window (Sonnet 4.6)",
+        "Context compaction: never hit the wall"
+      ],
+      "image": "generated/claude-code-updates-3.png",
+      "duration": 7,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Vibe Working",
+      "body": "",
+      "quote": {
+        "text": "We are now transitioning almost into vibe working. People can now do things with their ideas.",
+        "author": "Scott White",
+        "role": "Anthropic Head of Product, Enterprise"
+      },
+      "duration": 5,
+      "transition": "glitch",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Claude Code vs The Rest",
+      "body": "",
+      "comparison": {
+        "left": {
+          "label": "Claude Code",
+          "points": [
+            "Terminal-first, fully agentic",
+            "$2.5B ARR, 2x WAU growth",
+            "MCP + subagents + voice",
+            "80.9% SWE-bench"
+          ]
+        },
+        "right": {
+          "label": "Cursor / Copilot",
+          "points": [
+            "IDE-first, autocomplete roots",
+            "Cursor: $2B ARR (Mar 2026)",
+            "Plugin ecosystem, model-agnostic",
+            "Broader model support"
+          ]
+        }
+      },
+      "duration": 6,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Getting Started",
+      "body": "",
+      "codeSnippet": {
+        "code": "# Install Claude Code\nbrew install --cask claude-code\n# or: npm install -g @anthropic-ai/claude-code\n\n# Start a session in your project\ncd my-project && claude\n\n# Voice mode\n/voice  # hold spacebar to talk\n\n# Security scan\n/security-review\n\n# Parallel branches\nclaude --worktree",
+        "language": "bash",
+        "filename": "terminal"
+      },
+      "duration": 7,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "The Takeaway",
+      "body": "From research preview to $2.5 billion ARR in twelve months. Voice mode, security scanning, agent teams, 1M token context. Claude Code didn't just change coding \u2014 it's coming for all knowledge work next.",
+      "bulletPoints": [
+        "$2.5B ARR \u2014 doubled in 2 months",
+        "176 updates in one year \u2014 shipping weekly",
+        "Vibe coding became vibe working"
+      ],
+      "duration": 6,
+      "transition": "fade",
+      "imageFrame": "none"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a0a",
+    "primaryColor": "#D97706",
+    "accentColor": "#60A5FA",
+    "secondaryColor": "#1a1a2e",
+    "textColor": "#ffffff",
+    "mutedColor": "#a0a0b0"
+  }
+}

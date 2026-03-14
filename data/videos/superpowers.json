@@ -1,0 +1,307 @@
+{
+  "title": "Superpowers",
+  "subtitle": "// the AI workflow that actually works",
+  "topic": "AI Development",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "What is Superpowers?",
+      "body": "A complete software development workflow for AI coding agents \u2014 built on composable skills that trigger automatically.",
+      "image": "generated/superpowers-hero-0.png",
+      "duration": 15,
+      "transition": "slide"
+    },
+    {
+      "heading": "Explosive Growth",
+      "body": "In just months, Superpowers became the fastest-growing AI dev tool on GitHub.",
+      "stats": {
+        "items": [
+          {
+            "label": "GitHub Stars",
+            "value": 73600,
+            "suffix": "+"
+          },
+          {
+            "label": "Forks",
+            "value": 5700,
+            "suffix": "+"
+          },
+          {
+            "label": "Stars per Month",
+            "value": 9000,
+            "suffix": "+"
+          },
+          {
+            "label": "Total Commits",
+            "value": 286
+          }
+        ]
+      },
+      "duration": 19,
+      "transition": "fade"
+    },
+    {
+      "heading": "AI Agents Have a Problem",
+      "body": "Even the best AI models struggle with real software development.",
+      "bulletPoints": [
+        "Models hallucinate and skip critical details",
+        "They rush to write code without understanding requirements",
+        "No testing discipline \u2014 ship first and debug later",
+        "Context loss across long development sessions"
+      ],
+      "duration": 19,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Creator's Vision",
+      "body": "",
+      "quote": {
+        "text": "It was a matter of describing how I wanted the workflows to go \u2014 and Claude put the pieces together.",
+        "author": "Jesse Vincent",
+        "role": "Creator of Superpowers"
+      },
+      "duration": 12,
+      "transition": "wipe"
+    },
+    {
+      "heading": "What Spec-Driven Tools Do",
+      "body": "Frameworks like OpenSpec, SpecKit, and BMAD turn ideas into structured specifications.",
+      "bulletPoints": [
+        "Convert conversations into task lists",
+        "Provide structured documentation templates",
+        "Focus on planning and specification only",
+        "Agent still left to figure out execution alone"
+      ],
+      "duration": 19,
+      "transition": "slide"
+    },
+    {
+      "heading": "Specs vs Superpowers",
+      "body": "The fundamental difference in approach.",
+      "comparison": {
+        "left": {
+          "label": "Spec-Driven",
+          "points": [
+            "Turns ideas into specs",
+            "Agent implements alone",
+            "No execution guidance",
+            "Manual quality control"
+          ]
+        },
+        "right": {
+          "label": "Superpowers",
+          "points": [
+            "Complete dev workflow",
+            "Sub-agent orchestration",
+            "Built-in TDD enforcement",
+            "Autonomous for hours"
+          ]
+        }
+      },
+      "duration": 16,
+      "transition": "glitch"
+    },
+    {
+      "heading": "Beyond Specifications",
+      "body": "Superpowers doesn't just plan \u2014 it brainstorms, designs, implements, tests, reviews, and ships. The complete pipeline.",
+      "image": "generated/superpowers-workflow-0.png",
+      "duration": 12,
+      "transition": "fade"
+    },
+    {
+      "heading": "The 7-Phase Pipeline",
+      "body": "Every project flows through a mandatory structured workflow. No shortcuts allowed.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "Brainstorm",
+            "icon": "brain"
+          },
+          {
+            "label": "Worktree",
+            "icon": "git"
+          },
+          {
+            "label": "Plan",
+            "icon": "code"
+          },
+          {
+            "label": "Execute",
+            "icon": "rocket"
+          },
+          {
+            "label": "Review",
+            "icon": "shield"
+          }
+        ]
+      },
+      "duration": 25,
+      "transition": "slide"
+    },
+    {
+      "heading": "Socratic Design",
+      "body": "Before writing a single line of code, Superpowers asks what you're really trying to build.",
+      "bulletPoints": [
+        "Asks clarifying questions about intent",
+        "Explores alternative approaches",
+        "Presents design in digestible chunks",
+        "Proposes two to three implementation strategies"
+      ],
+      "duration": 21,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Sub-Agent Development",
+      "body": "Fresh sub-agents tackle each task with a two-stage review \u2014 spec compliance first, then code quality.",
+      "image": "generated/superpowers-agents-0.png",
+      "duration": 17,
+      "transition": "fade"
+    },
+    {
+      "heading": "Agent Orchestration",
+      "body": "Multiple agents work in parallel across isolated git worktrees. No merge conflicts.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "Orchestrator",
+            "icon": "brain"
+          },
+          {
+            "label": "Agent A",
+            "icon": "robot"
+          },
+          {
+            "label": "Agent B",
+            "icon": "robot"
+          },
+          {
+            "label": "Reviewer",
+            "icon": "shield"
+          }
+        ]
+      },
+      "duration": 14,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Hours of Autonomy",
+      "body": "Claude can work autonomously for hours at a time without deviating from the plan. Not an assistant \u2014 a structured engineer.",
+      "image": "generated/superpowers-autonomy-0.png",
+      "duration": 14,
+      "transition": "fade"
+    },
+    {
+      "heading": "Enforced TDD",
+      "body": "Superpowers doesn't suggest testing \u2014 it mandates red-green-refactor on every task.",
+      "bulletPoints": [
+        "Write failing test first \u2014 always",
+        "Minimal code to make it pass",
+        "Refactor only after green",
+        "Deletes code written before tests"
+      ],
+      "duration": 22,
+      "transition": "slide"
+    },
+    {
+      "heading": "Real-World Results",
+      "body": "Developers are shipping production-quality software with Superpowers.",
+      "bulletPoints": [
+        "Command-line Space Invaders in Rust at 20K FPS",
+        "Landing pages with plasma shaders and 3D motion",
+        "Glass morphism and interactive carousels \u2014 fully generated",
+        "Quality that chat-based AI interfaces cannot match"
+      ],
+      "duration": 18,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Under the Hood",
+      "body": "A tightly engineered system powering autonomous development.",
+      "stats": {
+        "items": [
+          {
+            "label": "Daily Star Peak",
+            "value": 1528
+          },
+          {
+            "label": "Composable Skills",
+            "value": 15,
+            "suffix": "+"
+          },
+          {
+            "label": "Workflow Phases",
+            "value": 7
+          }
+        ]
+      },
+      "duration": 16,
+      "transition": "fade"
+    },
+    {
+      "heading": "Industry Recognition",
+      "body": "",
+      "quote": {
+        "text": "Jesse is one of the most creative users of coding agents that I know \u2014 way ahead of the curve.",
+        "author": "Simon Willison",
+        "role": "Creator of Django & Datasette"
+      },
+      "duration": 11,
+      "transition": "glitch"
+    },
+    {
+      "heading": "The Creator",
+      "body": "Built by Jesse Vincent \u2014 former Perl project lead, creator of Request Tracker, and founder of Keyboardio. Now reimagining how AI writes software.",
+      "image": "generated/superpowers-creator-0.png",
+      "duration": 19,
+      "transition": "slide"
+    },
+    {
+      "heading": "Works Everywhere",
+      "body": "Install in seconds on Claude Code, Cursor, Codex, or OpenCode. Your agent just has superpowers.",
+      "image": "generated/superpowers-platforms-0.png",
+      "duration": 15,
+      "transition": "fade"
+    },
+    {
+      "heading": "Rapid Evolution",
+      "body": "From blog post to the most-starred AI dev tool in months.",
+      "timeline": {
+        "events": [
+          {
+            "year": "Oct 2025",
+            "label": "First release as Claude Code plugin"
+          },
+          {
+            "year": "Nov 2025",
+            "label": "Trending on Hacker News"
+          },
+          {
+            "year": "Jan 2026",
+            "label": "Official Anthropic marketplace"
+          },
+          {
+            "year": "Feb 2026",
+            "label": "73.6K stars plus Cursor support"
+          }
+        ]
+      },
+      "duration": 24,
+      "transition": "wipe"
+    },
+    {
+      "heading": "The Future of AI Development",
+      "body": "AI agents don't need better models \u2014 they need better methodology. Superpowers proves it.",
+      "image": "generated/superpowers-future-0.png",
+      "duration": 19,
+      "transition": "slide"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a12",
+    "primaryColor": "#00E5FF",
+    "accentColor": "#7C4DFF",
+    "secondaryColor": "#121225",
+    "textColor": "#ffffff",
+    "mutedColor": "#8899bb"
+  }
+}

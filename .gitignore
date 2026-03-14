@@ -3,3 +3,6 @@ dist
 .DS_Store
 out/
 public/generated/
+public/voiceover/
+!public/voiceover/.gitkeep
+__pycache__/

@@ -1,0 +1,150 @@
+{
+  "title": "vLLM vs llama.cpp",
+  "subtitle": "// the LLM serving showdown",
+  "topic": "AI Infrastructure",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "The Serving Problem",
+      "body": "You've got a 70 billion parameter model. Now serve it to a thousand users. That's the trillion-dollar question — and two tools have very different answers.",
+      "bulletPoints": [
+        "vLLM: GPU-first, throughput monster",
+        "llama.cpp: runs anywhere, serves anything",
+        "Same goal, opposite philosophies"
+      ],
+      "image": "generated/vllm-vs-llamacpp-hero-0.png",
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "How vLLM Works",
+      "body": "Built at UC Berkeley, vLLM uses PagedAttention — it treats GPU memory like virtual memory pages. No fragmentation, no waste, maximum batch throughput.",
+      "diagram": {
+        "nodes": [
+          { "label": "Request Queue", "icon": "api" },
+          { "label": "PagedAttention", "icon": "brain" },
+          { "label": "KV Cache", "icon": "database" },
+          { "label": "GPU Batch", "icon": "lightning" },
+          { "label": "Response", "icon": "rocket" }
+        ]
+      },
+      "duration": 6,
+      "transition": "wipe"
+    },
+    {
+      "heading": "vLLM by the Numbers",
+      "body": "Pure throughput domination on GPU hardware.",
+      "stats": {
+        "items": [
+          { "label": "Tokens/sec", "value": 8033, "suffix": "" },
+          { "label": "Time to First Token", "value": 10.7, "suffix": "ms" },
+          { "label": "vs Sequential", "value": 16.6, "suffix": "x faster" },
+          { "label": "Concurrent Success", "value": 100, "suffix": "%" }
+        ]
+      },
+      "duration": 5,
+      "transition": "fade"
+    },
+    {
+      "heading": "How llama.cpp Works",
+      "body": "Georgi Gerganov rewrote LLM inference in pure C/C++ — no Python, no CUDA required. It quantizes models from 16-bit down to 4-bit, letting you run 70B models on a MacBook.",
+      "bulletPoints": [
+        "GGUF format: quantized model files (Q4, Q5, Q8)",
+        "CPU + Metal + CUDA + Vulkan backends",
+        "Runs on Raspberry Pi to server racks",
+        "Single-user optimized, not batch-first"
+      ],
+      "image": "generated/vllm-vs-llamacpp-edge-0.png",
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Real Trade-off",
+      "body": "It's not about which is better — it's about what you're optimizing for.",
+      "comparison": {
+        "left": {
+          "label": "vLLM",
+          "points": [
+            "8,033 tokens/sec throughput",
+            "Requires .safetensor format",
+            "GPU-only (NVIDIA preferred)",
+            "Handles 128+ concurrent users",
+            "Production API serving"
+          ]
+        },
+        "right": {
+          "label": "llama.cpp",
+          "points": [
+            "~150 tokens/sec (M4 Ultra)",
+            "GGUF quantized format",
+            "Runs on CPU, Mac, edge devices",
+            "Best for single-user / small batch",
+            "Serves BIGGER models via quantization"
+          ]
+        }
+      },
+      "duration": 7,
+      "transition": "glitch"
+    },
+    {
+      "heading": "Setup: Two Commands",
+      "body": "Getting started with either takes minutes, not hours.",
+      "codeSnippet": {
+        "code": "# vLLM — GPU serving in 2 lines\npip install vllm\nvllm serve meta-llama/Llama-3.1-70B-Instruct \\\n  --tensor-parallel-size 2\n\n# llama.cpp — CPU/Metal inference\ngit clone https://github.com/ggml-org/llama.cpp\ncmake -B build && cmake --build build\n./build/bin/llama-server \\\n  -m models/llama-3.1-70b-q4_k_m.gguf \\\n  --host 0.0.0.0 --port 8080",
+        "language": "bash",
+        "filename": "setup.sh"
+      },
+      "duration": 8,
+      "transition": "fade"
+    },
+    {
+      "heading": "The .safetensor Question",
+      "body": "vLLM loads models in safetensors format — full precision weights stored in a safe, memory-mapped binary. It's fast to load but needs serious VRAM.",
+      "bulletPoints": [
+        "safetensors: full-precision, GPU-ready, ~140GB for 70B",
+        "GGUF: quantized, 4-bit = ~40GB for same 70B model",
+        "vLLM trades disk space for raw throughput speed",
+        "llama.cpp trades speed for fitting bigger models"
+      ],
+      "duration": 6,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Timeline",
+      "body": "Both projects launched within months of each other.",
+      "timeline": {
+        "events": [
+          { "year": "Feb 2023", "label": "Meta releases LLaMA weights" },
+          { "year": "Mar 2023", "label": "llama.cpp: C++ inference, no GPU needed" },
+          { "year": "Jun 2023", "label": "vLLM launches with PagedAttention" },
+          { "year": "Aug 2023", "label": "GGUF format replaces GGML" },
+          { "year": "2024", "label": "vLLM becomes default production server" },
+          { "year": "2025", "label": "llama.cpp adds Vulkan + speculative decode" }
+        ]
+      },
+      "duration": 6,
+      "transition": "slide"
+    },
+    {
+      "heading": "When to Use What",
+      "body": "Pick your weapon based on your deployment reality.",
+      "bulletPoints": [
+        "vLLM: production APIs with hundreds of concurrent users",
+        "vLLM: you have NVIDIA GPUs and .safetensor models",
+        "llama.cpp: edge devices, MacBooks, limited VRAM",
+        "llama.cpp: you need to serve a model bigger than your GPU",
+        "Both: they solve different problems — not competitors"
+      ],
+      "duration": 6,
+      "transition": "fade"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a12",
+    "primaryColor": "#FF6B2E",
+    "accentColor": "#00BFFF",
+    "secondaryColor": "#151528",
+    "textColor": "#ffffff",
+    "mutedColor": "#8888aa"
+  }
+}

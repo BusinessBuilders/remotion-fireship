@@ -1,0 +1,298 @@
+{
+  "title": "OpenClaw Robots",
+  "subtitle": "// giving AI systems a body",
+  "topic": "Robotics & AI",
+  "lightLeaks": true,
+  "watermark": "",
+  "sections": [
+    {
+      "heading": "The Clip That Changed Everything",
+      "body": "A robotics video started spreading online and the moment engineers saw it they knew something bigger was happening. A humanoid robot walks through a room scanning with LiDAR and cameras. Totally normal. But the system behind it was turning everything the robot saw into a structured memory of the world.",
+      "image": "generated/openclaw-robots-ch1-0.png",
+      "duration": 18,
+      "transition": "slide"
+    },
+    {
+      "heading": "Robots That React vs Robots That Remember",
+      "body": "Traditional robots live in the present moment \u2014 and that's the problem.",
+      "bulletPoints": [
+        "Sensors fire \u2192 map updates \u2192 robot moves",
+        "Context from minutes ago fades away permanently",
+        "Can't answer: 'where did I last see the keys?'",
+        "Navigation \u2260 memory \u2014 robots confuse the two"
+      ],
+      "duration": 25,
+      "transition": "fade"
+    },
+    {
+      "heading": "OpenClaw: Giving AI Systems Hands",
+      "body": "OpenClaw is an open-source AI agent framework that gives language models the ability to actually execute tasks \u2014 run shell commands, control browsers, call APIs. Developers described it as giving AI systems hands. Now those hands are moving into physical robotics.",
+      "image": "generated/openclaw-robots-ch2-0.png",
+      "duration": 17,
+      "transition": "wipe"
+    },
+    {
+      "heading": "The OpenClaw Origin Story",
+      "body": "From weekend project to fastest-growing open-source repo in history",
+      "timeline": {
+        "events": [
+          {
+            "year": "Nov 2025",
+            "label": "Clawdbot launched \u2014 autonomous AI agent"
+          },
+          {
+            "year": "Jan 2026",
+            "label": "Renamed OpenClaw after trademark dispute"
+          },
+          {
+            "year": "Feb 2026",
+            "label": "Surpasses 100K GitHub stars"
+          },
+          {
+            "year": "Feb 14",
+            "label": "Creator joins OpenAI"
+          },
+          {
+            "year": "Mar 2026",
+            "label": "200K+ stars \u2014 robotics demos go viral"
+          }
+        ]
+      },
+      "duration": 21,
+      "transition": "slide"
+    },
+    {
+      "heading": "Spatial Agent Memory",
+      "body": "Dimensional's team added something called Spatial Agent Memory to OpenClaw. The robot doesn't just navigate \u2014 it builds a persistent model of the world connecting place, object, and time.",
+      "bulletPoints": [
+        "Tracks where objects are and where people move",
+        "Logs when events happen \u2014 a timeline of physical space",
+        "Persistent across sessions \u2014 not just the present moment",
+        "Queryable like a database \u2014 not replayed like a camera"
+      ],
+      "duration": 20,
+      "transition": "fade"
+    },
+    {
+      "heading": "Voxelization: 3D Memory",
+      "body": "The team solved the data problem using voxelization \u2014 dividing physical space into tiny 3D cubes called voxels. Each voxel carries a vector embedding for geometry plus a semantic label for meaning. The robot builds a layered structure of rooms, objects, surfaces, and timestamps. That becomes the robot's spatial memory.",
+      "image": "generated/openclaw-robots-ch3-0.png",
+      "duration": 24,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Spatial Memory Architecture",
+      "body": "LiDAR and cameras feed raw sensor data into a voxel grid. The grid maps into a spatial database. A query engine translates natural language into spatial searches across objects, rooms, semantics, geometry, and time.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "LiDAR + Cams",
+            "icon": "lightning"
+          },
+          {
+            "label": "Voxel Grid",
+            "icon": "cube"
+          },
+          {
+            "label": "Spatial DB",
+            "icon": "database"
+          },
+          {
+            "label": "Query Engine",
+            "icon": "search"
+          },
+          {
+            "label": "LLM Reasoning",
+            "icon": "brain"
+          }
+        ]
+      },
+      "duration": 24,
+      "transition": "slide"
+    },
+    {
+      "heading": "Querying the Physical World",
+      "body": "Because the system stores both geometry AND meaning, the robot can answer questions humans actually ask \u2014 without replaying video.",
+      "bulletPoints": [
+        "\"Where are the keys?\" \u2192 searches by object label + timestamp",
+        "\"Who entered Tuesday?\" \u2192 scans movement patterns",
+        "\"Which room is used most?\" \u2192 analyzes activity over days",
+        "Not a security camera \u2014 a structured queryable world model"
+      ],
+      "duration": 20,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Spatial RAG in Code",
+      "body": "Combining spatial retrieval with language generation",
+      "codeSnippet": {
+        "code": "from openclaw.spatial import SpatialMemory\n\nmemory = SpatialMemory(voxel_size=0.05)  # 5cm resolution\n\n# Robot scans continuously \u2014 memory auto-updates\nmemory.ingest(lidar_frame, rgb_frame, timestamp)\n\n# Query in natural language\nanswer = memory.query(\n    \"Where were the keys last seen?\"\n)\n# Returns: Room: Kitchen, Position: counter-west\n#          Timestamp: 14:32 yesterday, Confidence: 0.92\n\n# Time-based queries\nmovement = memory.query(\n    \"Who entered the house after 8pm Tuesday?\"\n)",
+        "language": "python",
+        "filename": "spatial_query.py"
+      },
+      "duration": 22,
+      "transition": "fade"
+    },
+    {
+      "heading": "Why It Exploded Online",
+      "body": "Persistent spatial memory has been one of the missing components in robotics \u2014 and it just got open-sourced",
+      "stats": {
+        "items": [
+          {
+            "label": "GitHub Stars",
+            "value": 200000,
+            "suffix": "+"
+          },
+          {
+            "label": "Robot Types",
+            "value": 4,
+            "suffix": " supported"
+          },
+          {
+            "label": "OEM Robots",
+            "value": 80,
+            "suffix": "% compatible"
+          },
+          {
+            "label": "Community Skills",
+            "value": 3000,
+            "suffix": "+"
+          }
+        ]
+      },
+      "duration": 20,
+      "transition": "slide"
+    },
+    {
+      "heading": "OpenClaw vs Traditional ROS",
+      "body": "Two different philosophies for robot intelligence",
+      "comparison": {
+        "left": {
+          "label": "OpenClaw",
+          "points": [
+            "Natural language command interface",
+            "LLM-native reasoning layer",
+            "Hardware-agnostic architecture",
+            "No ROS dependency required"
+          ]
+        },
+        "right": {
+          "label": "ROS 2",
+          "points": [
+            "Industry standard \u2014 15+ years",
+            "Low-level message passing control",
+            "Specialized ML models per task",
+            "Maximum hardware determinism"
+          ]
+        }
+      },
+      "duration": 21,
+      "transition": "wipe"
+    },
+    {
+      "heading": "The Unitree G1 Experiment",
+      "body": "One widely-shared experiment connected OpenClaw to the Unitree G1 \u2014 a humanoid robot priced at $16,000. Instead of writing complex robotics code, users send simple text messages through WhatsApp or Telegram. The robot executes the movement. It can even send camera snapshots back through the same messaging app.",
+      "image": "generated/openclaw-robots-ch4-0.png",
+      "duration": 24,
+      "transition": "fade"
+    },
+    {
+      "heading": "Text-to-Robot Control",
+      "body": "From natural language to physical movement via OpenClaw",
+      "codeSnippet": {
+        "code": "import openclaw\nfrom unitree import G1Robot\n\nagent = openclaw.Agent(skill=\"unitree-robot\")\nrobot = G1Robot(ip=\"192.168.1.100\")\n\n@agent.on_message\nasync def handle(msg: str):\n    # User sends via WhatsApp/Telegram:\n    # \"forward 1m\"\n    # \"turn left 45 degrees\"\n    # \"send me a photo\"\n    \n    if \"photo\" in msg or \"snapshot\" in msg:\n        frame = await robot.camera.capture()\n        await agent.reply_with_image(frame)\n    else:\n        plan = await agent.plan_movement(msg)\n        await robot.locomotion.execute(plan)",
+        "language": "python",
+        "filename": "unitree_agent.py"
+      },
+      "duration": 19,
+      "transition": "slide"
+    },
+    {
+      "heading": "Robots of Every Shape",
+      "body": "OpenClaw is spreading across every robotics form factor simultaneously.",
+      "bulletPoints": [
+        "Arrow Hand Open: 16-joint 3D-printed hand, calibrated via USB camera",
+        "AI generates servo commands \u2192 gestures narrated via Telegram",
+        "Nero 7-axis arm: describe movement in text \u2192 Python code auto-generated",
+        "ROSClaw bridge won SF OpenClaw Hackathon \u2014 full ROS 2 compatibility"
+      ],
+      "duration": 26,
+      "transition": "wipe"
+    },
+    {
+      "heading": "The Real World is Messy",
+      "body": "Experienced robotics engineers are quick to point out what lab demos hide.",
+      "bulletPoints": [
+        "Sensors conflict \u2014 LiDAR and cameras disagree in real conditions",
+        "Lighting changes destroy object detection confidence",
+        "Objects move unexpectedly \u2014 the voxel map goes stale",
+        "The reasoning layer can't move as fast as motors need to react"
+      ],
+      "duration": 17,
+      "transition": "fade"
+    },
+    {
+      "heading": "The Architecture That Answers This",
+      "body": "OpenClaw separates intelligence from motion control. Real-time movement stays handled by the robot's control system at full speed. OpenClaw sits above it as the high-level coordination layer \u2014 observing, remembering, deciding what comes next.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "OpenClaw",
+            "icon": "brain"
+          },
+          {
+            "label": "Policy Layer",
+            "icon": "shield"
+          },
+          {
+            "label": "Control System",
+            "icon": "robot"
+          },
+          {
+            "label": "Motors & Joints",
+            "icon": "lightning"
+          }
+        ]
+      },
+      "duration": 24,
+      "transition": "slide"
+    },
+    {
+      "heading": "QwestorClaw: Adding a Brain",
+      "body": "SingularityNet's Ben Goertzel proposed pairing OpenClaw's execution power with a dedicated cognitive layer called Qwestor. Qwestor handles long-term memory, goal-driven planning, and progressive reasoning. OpenClaw handles all tool calls and physical actions. A strict policy boundary separates them \u2014 external inputs enter quarantine before reaching trusted memory.",
+      "codeSnippet": {
+        "code": "# QwestorClaw: cognitive layer + execution layer\n# Qwestor: episodic memory + goal-driven planning\n# OpenClaw: tool execution + hardware control\n\nqwestor = QwestorAgent(\n    memory=\"episodic+declarative\",\n    planning=\"hierarchical\",\n    reasoning=\"symbolic+LLM\"\n)\nexecutor = OpenClawAgent(\n    tools=[\"robot\", \"sensors\", \"actuators\"],\n    # Capability tokens \u2014 scoped permissions with TTL\n    tokens=qwestor.issue_tokens(\n        scope=\"locomotion\",\n        ttl=3600\n    )\n)\n# External input \u2192 quarantine \u2192 trusted memory\n# High-risk actions require explicit human approval",
+        "language": "python",
+        "filename": "qwestorclaw.py"
+      },
+      "duration": 26,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Amazing Hands for a Brain That Doesn't Exist Yet",
+      "body": "",
+      "quote": {
+        "text": "OpenClaw is a better set of hands for an artificial brain. What it doesn't yet provide is the deeper reasoning that would qualify as AGI.",
+        "author": "Ben Goertzel",
+        "role": "CEO, SingularityNet"
+      },
+      "duration": 16,
+      "transition": "glitch"
+    },
+    {
+      "heading": "The Machine Economy",
+      "body": "peaq's Robotics SDK lets robots connect to OpenClaw agents and go fully onchain. A robot generates a decentralized identity, holds funds, executes transactions, and participates in machine-to-machine payments. 2026 is looking like the year AI agents start interacting directly with physical reality.",
+      "image": "generated/openclaw-robots-ch5-0.png",
+      "duration": 23,
+      "transition": "fade"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#050510",
+    "primaryColor": "#00d4ff",
+    "accentColor": "#7C3AED",
+    "secondaryColor": "#0a1020",
+    "textColor": "#ffffff",
+    "mutedColor": "#8090a0"
+  }
+}

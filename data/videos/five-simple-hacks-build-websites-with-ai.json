@@ -1,0 +1,288 @@
+{
+  "title": "5 Simple Hacks",
+  "subtitle": "// build websites with AI that don't look AI-made",
+  "topic": "AI Web Design",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "Why AI Websites All Look The Same",
+      "body": "Most AI-built landing pages fail for the same reason: one vague prompt, zero constraints, and a model hallucinating taste. The result is generic gradients, interchangeable copy, and a hero section that could belong to literally anyone.",
+      "image": "generated/five-simple-hacks-build-websites-with-ai-ch1-0.png",
+      "duration": 17,
+      "transition": "slide",
+      "imageFrame": "browser"
+    },
+    {
+      "heading": "The Real Advantage",
+      "body": "",
+      "stats": {
+        "items": [
+          {
+            "label": "Faster Task Completion",
+            "value": 55,
+            "suffix": "%"
+          },
+          {
+            "label": "Higher Pass Rate",
+            "value": 53.2,
+            "suffix": "%"
+          },
+          {
+            "label": "v0 Users Since 2024",
+            "value": 4,
+            "suffix": "M+"
+          },
+          {
+            "label": "Prompt Problem",
+            "value": 1,
+            "suffix": "shot"
+          }
+        ]
+      },
+      "duration": 23,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "The Workflow That Fixes It",
+      "body": "Better websites do not come from better luck. They come from a better pipeline.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "Brief",
+            "icon": "code"
+          },
+          {
+            "label": "Brand Assets",
+            "icon": "globe"
+          },
+          {
+            "label": "Design Rules",
+            "icon": "shield"
+          },
+          {
+            "label": "AI Builder",
+            "icon": "robot"
+          },
+          {
+            "label": "Review Pass",
+            "icon": "rocket"
+          }
+        ]
+      },
+      "duration": 18,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Hack 1: Write The Brief Once",
+      "body": "Do not start with, build me a website. Start with a persistent brief that tells the AI who this is for, what the brand feels like, what the stack is, and what good looks like.",
+      "bulletPoints": [
+        "Audience, offer, and CTA",
+        "Preferred stack and components",
+        "Visual direction and anti-patterns",
+        "Rules the AI should follow every pass"
+      ],
+      "duration": 17,
+      "transition": "slide",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Give It A Brain",
+      "body": "",
+      "codeSnippet": {
+        "code": "# project-brief.md or CLAUDE.md\n- Build a premium landing page for a local business\n- Use warm neutrals and one accent color\n- Avoid generic SaaS gradients and fake dashboards\n- Prioritize clear hierarchy, strong CTA, mobile polish\n- Review spacing, typography, and copy before finishing",
+        "language": "markdown",
+        "filename": "project-brief.md"
+      },
+      "duration": 17,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Hack 2: Add Taste On Purpose",
+      "body": "AI is good at remixing patterns, not inventing taste. So give it a design skill, a design system, reference pages, or explicit visual constraints before it writes front-end code.",
+      "bulletPoints": [
+        "Use design-specific instructions or skills",
+        "Name the vibe precisely, not vaguely",
+        "Call out what to avoid, not just what to include"
+      ],
+      "duration": 18,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Spend Less Time Guessing",
+      "body": "",
+      "quote": {
+        "text": "I spend less time figuring things out through trial and error, and more time making sure my code is secure and performant.",
+        "author": "Claudio Wunder",
+        "role": "Open source developer"
+      },
+      "duration": 16,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Hack 3: Feed Assets, Not Adjectives",
+      "body": "Saying modern and professional gets you a site that looks like everyone else's. Upload the logo, palette, typography, screenshots, product copy, and any brand guide you have. Concrete inputs beat poetic prompting every time.",
+      "image": "generated/five-simple-hacks-build-websites-with-ai-ch2-0.png",
+      "duration": 22,
+      "transition": "wipe",
+      "imageFrame": "browser"
+    },
+    {
+      "heading": "Build A Context Stack",
+      "body": "The best outputs come from layered context, not from one magic sentence.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "Logo",
+            "icon": "globe"
+          },
+          {
+            "label": "Brand Guide",
+            "icon": "shield"
+          },
+          {
+            "label": "Screenshots",
+            "icon": "search"
+          },
+          {
+            "label": "Copy Doc",
+            "icon": "code"
+          },
+          {
+            "label": "AI Output",
+            "icon": "rocket"
+          }
+        ]
+      },
+      "duration": 21,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Hack 4: Build In Passes",
+      "body": "Do not ask for the final site in one shot. Ask for structure first, then styling, then copy polish, then responsive cleanup, then bug fixes. AI does better when the creative direction is sequenced.",
+      "bulletPoints": [
+        "Pass 1: section structure",
+        "Pass 2: visual direction",
+        "Pass 3: copy and hierarchy",
+        "Pass 4: responsive and QA"
+      ],
+      "duration": 24,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Prompt Like A Director",
+      "body": "",
+      "codeSnippet": {
+        "code": "1. Build the page structure only. No styling pass yet.\n2. Now restyle it using the attached brand guide and logo.\n3. Rewrite the hero and CTA for a premium local-service audience.\n4. Tighten spacing, fix mobile layout, and remove generic filler copy.\n5. Review the page like a creative director and list remaining issues.",
+        "language": "text",
+        "filename": "prompt-sequence.txt"
+      },
+      "duration": 23,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "One-Shot Prompt vs Branded Workflow",
+      "body": "",
+      "comparison": {
+        "left": {
+          "label": "One-Shot Prompt",
+          "points": [
+            "Generic hero and vague CTA",
+            "Random palette and safe typography",
+            "Weak hierarchy on mobile",
+            "Looks fast, feels disposable"
+          ]
+        },
+        "right": {
+          "label": "Branded Workflow",
+          "points": [
+            "Persistent brief and design rules",
+            "Real assets and reference pages",
+            "Multi-pass direction and QA",
+            "Feels custom enough to ship"
+          ]
+        }
+      },
+      "duration": 22,
+      "transition": "wipe",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "Hack 5: Review Like A Creative Director",
+      "body": "Your job is no longer typing every div by hand. Your job is judging what deserves to stay on the page. Cut weak copy. Fix spacing. Push hierarchy. Make the AI earn every section.",
+      "image": "generated/five-simple-hacks-build-websites-with-ai-ch3-0.png",
+      "duration": 19,
+      "transition": "slide",
+      "imageFrame": "browser"
+    },
+    {
+      "heading": "The Four-Pass Refinement Loop",
+      "body": "",
+      "timeline": {
+        "events": [
+          {
+            "year": "Pass 1",
+            "label": "Get the section structure right"
+          },
+          {
+            "year": "Pass 2",
+            "label": "Apply visual direction and brand"
+          },
+          {
+            "year": "Pass 3",
+            "label": "Rewrite copy and tighten hierarchy"
+          },
+          {
+            "year": "Pass 4",
+            "label": "Fix mobile, spacing, and polish"
+          }
+        ]
+      },
+      "duration": 23,
+      "transition": "fade",
+      "imageFrame": "none"
+    },
+    {
+      "heading": "This Works Beyond One Tool",
+      "body": "Claude Code, v0, Lovable, Bolt, whatever. The tool matters less than the workflow. In 2026, the teams shipping the best AI-built sites are the ones supplying better context and doing better review.",
+      "bulletPoints": [
+        "Use the builder that fits your stack",
+        "Keep the brief and assets reusable",
+        "Treat AI as fast execution, not final judgment"
+      ],
+      "image": "generated/five-simple-hacks-build-websites-with-ai-ch4-0.png",
+      "duration": 18,
+      "transition": "wipe",
+      "imageFrame": "browser"
+    },
+    {
+      "heading": "The Takeaway",
+      "body": "Five simple hacks. Write the brief once. Add taste on purpose. Feed assets, not adjectives. Build in passes. Review like a creative director. That is how you use AI to build websites that look branded instead of vibe-coded.",
+      "bulletPoints": [
+        "Better inputs beat better prompting",
+        "Brand context beats generic style",
+        "Iteration beats one-shot generation"
+      ],
+      "duration": 22,
+      "transition": "fade",
+      "imageFrame": "none"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0B1020",
+    "primaryColor": "#F97316",
+    "accentColor": "#22D3EE",
+    "secondaryColor": "#111827",
+    "textColor": "#FFFFFF",
+    "mutedColor": "#94A3B8",
+    "fontFamily": "Inter",
+    "codeFontFamily": "JetBrains Mono"
+  }
+}

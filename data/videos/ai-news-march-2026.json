@@ -1,0 +1,267 @@
+{
+  "title": "AI News Roundup",
+  "subtitle": "// march 2026 \u2014 the week everything shipped",
+  "topic": "AI News",
+  "lightLeaks": true,
+  "sections": [
+    {
+      "heading": "This Week in AI",
+      "body": "Nine massive stories just dropped \u2014 reshaping how we build, ship, and secure AI systems.",
+      "bulletPoints": [
+        "Anthropic launches multi-agent code review",
+        "Microsoft unveils Copilot Cowork",
+        "OpenAI acquires PromptFoo for agent security",
+        "DeepSeek V4 delayed amid the model wars"
+      ],
+      "duration": 11,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Numbers",
+      "stats": {
+        "items": [
+          {
+            "label": "Review Hit Rate",
+            "value": 54,
+            "suffix": "%"
+          },
+          {
+            "label": "PromptFoo Devs",
+            "value": 130000,
+            "suffix": "+"
+          },
+          {
+            "label": "Gemma 4 Params",
+            "value": 120,
+            "suffix": "B"
+          },
+          {
+            "label": "Copilot Seats",
+            "value": 15,
+            "suffix": "M"
+          }
+        ]
+      },
+      "duration": 14,
+      "transition": "fade"
+    },
+    {
+      "heading": "Claude Gets Code Review",
+      "body": "Anthropic shipped Code Review \u2014 a multi-agent system that scans every PR for logical bugs, not just style nits. It's been running on nearly every Anthropic PR for months.",
+      "image": "generated/ai-news-ch1-0.png",
+      "duration": 12,
+      "transition": "slide"
+    },
+    {
+      "heading": "Multi-Agent Review Pipeline",
+      "body": "Multiple agents analyze code in parallel from different angles. A final agent aggregates findings, removes duplicates, and ranks by severity.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "PR Opened",
+            "icon": "code"
+          },
+          {
+            "label": "Parallel Agents",
+            "icon": "robot"
+          },
+          {
+            "label": "Verify Issues",
+            "icon": "shield"
+          },
+          {
+            "label": "Rank Severity",
+            "icon": "chart"
+          },
+          {
+            "label": "Post Summary",
+            "icon": "terminal"
+          }
+        ]
+      },
+      "duration": 14,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Review Integration",
+      "codeSnippet": {
+        "code": "# .github/workflows/claude-review.yml\nname: Claude Code Review\non: [pull_request]\njobs:\n  review:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: anthropic/code-review@v1\n        with:\n          severity: [red, yellow, purple]\n          depth: auto  # scales with PR size\n          # Large PRs get deeper analysis\n          # Small PRs get lighter pass",
+        "language": "yaml",
+        "filename": "claude-review.yml"
+      },
+      "duration": 22,
+      "transition": "fade"
+    },
+    {
+      "heading": "Copilot Goes Autonomous",
+      "body": "Microsoft's Copilot Cowork \u2014 built on Anthropic's Claude \u2014 turns requests into structured plans and executes across the entire M365 stack. It's not chatting anymore. It's doing.",
+      "image": "generated/ai-news-ch2-0.png",
+      "duration": 16,
+      "transition": "slide"
+    },
+    {
+      "heading": "Copilot vs Claude Code",
+      "comparison": {
+        "left": {
+          "label": "Copilot Cowork",
+          "points": [
+            "M365 ecosystem integration",
+            "Calendar and doc automation",
+            "Enterprise governance built-in",
+            "$99/month E7 bundle"
+          ]
+        },
+        "right": {
+          "label": "Claude Code Review",
+          "points": [
+            "Deep PR code analysis",
+            "Multi-agent parallel review",
+            "Severity-ranked findings",
+            "$15-25 per review"
+          ]
+        }
+      },
+      "duration": 15,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Gemma 4 Incoming",
+      "body": "Google's next open-weight model was spotted in a GitHub PR before being scrubbed. Gemma 4 could bring frontier-level performance to local hardware.",
+      "bulletPoints": [
+        "120B total parameters with 15B active",
+        "Near frontier-model performance",
+        "Open-weight \u2014 runs on commodity GPUs",
+        "Leaked via Google bot account on GitHub"
+      ],
+      "duration": 14,
+      "transition": "slide"
+    },
+    {
+      "heading": "DeepSeek V4 on Hold",
+      "body": "DeepSeek V4 was expected in early March \u2014 possibly timed to China's Two Sessions. Leaks showed 1M context windows and dynamic sparse attention. But OpenAI's latest drop may have forced a strategic delay.",
+      "duration": 14,
+      "transition": "fade"
+    },
+    {
+      "heading": "The Model Race",
+      "timeline": {
+        "events": [
+          {
+            "year": "Nov '25",
+            "label": "Gemini 3 launches"
+          },
+          {
+            "year": "Feb '26",
+            "label": "Gemini 3.1 Pro ships"
+          },
+          {
+            "year": "Mar '26",
+            "label": "DeepSeek V4 delayed"
+          },
+          {
+            "year": "Mar 9",
+            "label": "Code Review + Cowork"
+          }
+        ]
+      },
+      "duration": 15,
+      "transition": "slide"
+    },
+    {
+      "heading": "OpenAI Buys PromptFoo",
+      "body": "OpenAI acquired PromptFoo \u2014 the open-source red-teaming tool used by 25% of Fortune 500 companies. The 11-person startup raised just $23M before the deal. It's staying open source.",
+      "image": "generated/ai-news-ch3-0.png",
+      "duration": 15,
+      "transition": "glitch"
+    },
+    {
+      "heading": "Agent Security Stack",
+      "body": "PromptFoo's tech powers automated red-teaming, security evaluation, and compliance monitoring inside OpenAI Frontier.",
+      "diagram": {
+        "nodes": [
+          {
+            "label": "AI Agent",
+            "icon": "robot"
+          },
+          {
+            "label": "Red Team",
+            "icon": "shield"
+          },
+          {
+            "label": "Vuln Report",
+            "icon": "chart"
+          },
+          {
+            "label": "Compliance",
+            "icon": "lock"
+          },
+          {
+            "label": "Deploy",
+            "icon": "rocket"
+          }
+        ]
+      },
+      "duration": 19,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Red Teaming Agents",
+      "codeSnippet": {
+        "code": "# Test agent security with PromptFoo\nnpx promptfoo eval \\\n  --providers openai:gpt-5.2 \\\n  --plugins hijacking,harmful \\\n  --output vuln-report.json\n\n# Used by 25% of Fortune 500\n# 130K+ monthly active developers\n# Now integrated into OpenAI Frontier",
+        "language": "bash",
+        "filename": "security-test.sh"
+      },
+      "duration": 18,
+      "transition": "fade"
+    },
+    {
+      "heading": "Gemini CLI Minimal Mode",
+      "body": "Google's Gemini CLI now supports minimalist mode \u2014 double-tap Tab to strip the interface to just a prompt box. Less verbose tool calls, smoother experience. Making CLI AI accessible to everyone.",
+      "duration": 15,
+      "transition": "wipe"
+    },
+    {
+      "heading": "OpenClaw Levels Up",
+      "body": "The open-source AI agent platform shipped two rapid-fire releases packed with major upgrades.",
+      "bulletPoints": [
+        "ACP provenance \u2014 agents verify identity",
+        "New backup system for safer deploys",
+        "GPT 5.4 and Gemini 3.1 Flash Lite support",
+        "Slimmer Docker multi-stage builds"
+      ],
+      "duration": 16,
+      "transition": "fade"
+    },
+    {
+      "heading": "Grok Gets Creative",
+      "body": "Elon Musk teased Grok Imagine 1.5 after users praised its consistent style across full image extensions. xAI's image generation upgrade could drop any day.",
+      "duration": 15,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Industry Pulse",
+      "quote": {
+        "text": "As engineers develop with Claude Code, friction to creating features decreases \u2014 and demand for code review skyrockets.",
+        "author": "Cat Wu",
+        "role": "Head of Product, Anthropic"
+      },
+      "duration": 10,
+      "transition": "glitch"
+    },
+    {
+      "heading": "What's Next",
+      "body": "Nvidia's NemoClaw is coming \u2014 an open-source agent platform with GPU-native capabilities. Between Copilot Cowork, Code Review, and PromptFoo inside Frontier \u2014 the AI stack just got a whole lot more autonomous.",
+      "image": "generated/ai-news-ch4-0.png",
+      "duration": 13,
+      "transition": "fade"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a14",
+    "primaryColor": "#FF3366",
+    "accentColor": "#00D4FF",
+    "secondaryColor": "#1a1a2e",
+    "textColor": "#ffffff",
+    "mutedColor": "#8899aa"
+  }
+}

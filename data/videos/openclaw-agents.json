@@ -1,0 +1,239 @@
+{
+  "title": "OpenClaw",
+  "subtitle": "// the AI agent that broke GitHub",
+  "topic": "AI Agents",
+  "lightLeaks": true,
+  "watermark": "",
+  "sections": [
+    {
+      "heading": "The AI Agent Revolution",
+      "body": "OpenClaw is an open-source autonomous AI agent that runs on YOUR machine. It connects through WhatsApp, Telegram, Slack, and Discord — then takes real action. Shell commands, browser automation, email, files. Not a chatbot wrapper. An operator.",
+      "image": "generated/openclaw-agents-ch1-0.png",
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "Why Agents Matter Now",
+      "body": "The fastest-growing open-source repo in GitHub history",
+      "stats": {
+        "items": [
+          { "label": "GitHub Stars", "value": 200000, "suffix": "+" },
+          { "label": "Agent Market 2030", "value": 52, "suffix": "B" },
+          { "label": "Enterprise AI Agents", "value": 40, "suffix": "%" },
+          { "label": "Contributors", "value": 600, "suffix": "+" }
+        ]
+      },
+      "duration": 7,
+      "transition": "fade"
+    },
+    {
+      "heading": "Gateway Architecture",
+      "body": "A single Gateway process routes messages from any channel to the agent runtime. Channel adapters normalize input. A command queue serializes execution. Clean separation of concerns.",
+      "diagram": {
+        "nodes": [
+          { "label": "Channels", "icon": "globe" },
+          { "label": "Gateway", "icon": "server" },
+          { "label": "Queue", "icon": "terminal" },
+          { "label": "Agent", "icon": "brain" },
+          { "label": "Tools", "icon": "code" }
+        ]
+      },
+      "duration": 8,
+      "transition": "slide"
+    },
+    {
+      "heading": "Your First Agent",
+      "body": "Three commands and you have a live agent on your phone.",
+      "codeSnippet": {
+        "code": "# Install OpenClaw\ncurl -fsSL https://openclaw.ai/install | bash\n\n# Start the gateway\nopenclaw gateway start\n\n# Connect WhatsApp\nopenclaw channel add whatsapp\n\n# Send a message — your agent is live\n# It can run shell commands, read files,\n# browse the web, and manage your calendar",
+        "language": "bash",
+        "filename": "terminal"
+      },
+      "duration": 9,
+      "transition": "wipe"
+    },
+    {
+      "heading": "The Agent Loop",
+      "body": "OpenClaw runs a heartbeat — a scheduled loop where the agent wakes, checks tasks, acts, and sleeps. No prompt required. Time and state are first-class citizens.",
+      "bulletPoints": [
+        "Heartbeat scheduler: proactive, not reactive",
+        "Memory persists as Markdown files on disk",
+        "Context window ≠ memory: tokens vs storage",
+        "12+ messaging channels as the UI layer"
+      ],
+      "duration": 8,
+      "transition": "fade"
+    },
+    {
+      "heading": "Agent Configuration",
+      "body": "Define agents in Markdown. No code needed. Each agent gets isolated workspace, model, tools, and channels.",
+      "codeSnippet": {
+        "code": "# AGENTS.md\n\n## Main Assistant\n- model: claude-opus-4-6\n- tools: [exec, web, files, calendar]\n- memory: persistent\n- channels: [whatsapp, telegram]\n\n## Code Reviewer\n- model: claude-sonnet-4-6\n- tools: [exec, git, read]\n- memory: session-only\n- channels: [slack]",
+        "language": "markdown",
+        "filename": "AGENTS.md"
+      },
+      "duration": 9,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Skills Ecosystem",
+      "body": "Skills are plug-and-play capabilities. 3,000+ community extensions shipped in the first three weeks. Browse ClawHub, click Install, and your agent gains new powers — from email triage to GitHub PR reviews.",
+      "image": "generated/openclaw-agents-ch2-0.png",
+      "duration": 7,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Scheduled Automation",
+      "body": "Cron jobs and webhooks turn agents into proactive operators.",
+      "codeSnippet": {
+        "code": "// openclaw.config.json\n{\n  \"cron\": [\n    {\n      \"schedule\": \"0 9 * * *\",\n      \"action\": \"Triage my inbox by priority\",\n      \"channel\": \"whatsapp\"\n    },\n    {\n      \"schedule\": \"0 18 * * 5\",\n      \"action\": \"Generate weekly summary\",\n      \"channel\": \"slack\"\n    }\n  ],\n  \"webhooks\": {\n    \"github-push\": \"Review the latest commit\"\n  }\n}",
+        "language": "json",
+        "filename": "openclaw.config.json"
+      },
+      "duration": 9,
+      "transition": "fade"
+    },
+    {
+      "heading": "Channel Integration",
+      "body": "One agent across every messaging platform. The Gateway normalizes messages from any source into a unified format before the LLM ever sees them.",
+      "bulletPoints": [
+        "WhatsApp, Telegram, Slack, Discord, Signal, iMessage",
+        "Voice messages transcribed via Whisper",
+        "Canvas for live visual rendering in-chat",
+        "Multi-device session continuity across channels"
+      ],
+      "duration": 8,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Multi-Agent Orchestration",
+      "body": "Scale beyond one agent. Each specialist gets an isolated workspace, its own credentials, and separate memory. A coordinator delegates tasks across the team.",
+      "diagram": {
+        "nodes": [
+          { "label": "Coordinator", "icon": "brain" },
+          { "label": "Researcher", "icon": "search" },
+          { "label": "Developer", "icon": "code" },
+          { "label": "Reviewer", "icon": "shield" }
+        ]
+      },
+      "duration": 8,
+      "transition": "slide"
+    },
+    {
+      "heading": "Agent-to-Agent Messaging",
+      "body": "Agents communicate natively through peer sessions.",
+      "codeSnippet": {
+        "code": "// Enable agent-to-agent communication\n{\n  \"tools\": {\n    \"agentToAgent\": {\n      \"enabled\": true,\n      \"allow\": [\n        \"programmer\",\n        \"reviewer\",\n        \"tester\"\n      ]\n    }\n  }\n}\n// Coordinator spawns sessions per agent\n// Work happens in parallel\n// Results flow back automatically",
+        "language": "json",
+        "filename": "agent-config.json"
+      },
+      "duration": 10,
+      "transition": "fade"
+    },
+    {
+      "heading": "Framework Showdown",
+      "body": "Different tools for different problems.",
+      "comparison": {
+        "left": {
+          "label": "OpenClaw",
+          "points": [
+            "Local-first and self-hosted",
+            "Chat UI via messaging apps",
+            "200K+ GitHub stars in weeks",
+            "No code required to start"
+          ]
+        },
+        "right": {
+          "label": "LangChain / AutoGen",
+          "points": [
+            "Cloud-first and API-driven",
+            "Programmatic code interface",
+            "Larger dev tool ecosystem",
+            "Max flexibility for custom apps"
+          ]
+        }
+      },
+      "duration": 8,
+      "transition": "wipe"
+    },
+    {
+      "heading": "Security Reality Check",
+      "body": "An AI agent with root access is a double-edged sword. Cisco found 26% of 31,000 community skills contained at least one vulnerability. But OpenClaw stacks 6 defense layers.",
+      "bulletPoints": [
+        "Docker sandbox with configurable workspace isolation",
+        "Per-agent credential scoping — no leakage",
+        "Skill Scanner for automated vulnerability detection",
+        "Gateway binds localhost-only by default"
+      ],
+      "duration": 8,
+      "transition": "fade"
+    },
+    {
+      "heading": "Production Numbers",
+      "body": "Real metrics from a 4-week self-hosted deployment",
+      "stats": {
+        "items": [
+          { "label": "Uptime", "value": 99.6, "suffix": "%" },
+          { "label": "Latency Drop", "value": 41, "suffix": "%" },
+          { "label": "Cost Savings", "value": 54, "suffix": "%" },
+          { "label": "Tasks Processed", "value": 47200, "suffix": "" }
+        ]
+      },
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "The Design Philosophy",
+      "body": "",
+      "quote": {
+        "text": "Don't orchestrate with LLMs. Use them for creative work. Use code for plumbing.",
+        "author": "Gustavo Gondim",
+        "role": "OpenClaw Multi-Agent Developer"
+      },
+      "duration": 6,
+      "transition": "glitch"
+    },
+    {
+      "heading": "Production Deployment",
+      "body": "Docker Compose with rolling updates. Production-ready in 22 minutes on any VPS.",
+      "codeSnippet": {
+        "code": "# docker-compose.yml\nservices:\n  openclaw:\n    image: openclaw:latest\n    deploy:\n      replicas: 2\n      update_config:\n        parallelism: 1\n        order: start-first\n    ports:\n      - \"3000:3000\"\n    env_file: .env\n    healthcheck:\n      test: wget -qO- http://localhost:3000\n      interval: 15s\n      retries: 3\n    restart: always",
+        "language": "yaml",
+        "filename": "docker-compose.yml"
+      },
+      "duration": 9,
+      "transition": "fade"
+    },
+    {
+      "heading": "The OpenClaw Saga",
+      "body": "From weekend project to the fastest-growing open-source repo in history",
+      "timeline": {
+        "events": [
+          { "year": "Nov 2025", "label": "Clawdbot launched by Steinberger" },
+          { "year": "Jan 27", "label": "Renamed Moltbot after trademark dispute" },
+          { "year": "Jan 30", "label": "Final rebrand to OpenClaw" },
+          { "year": "Feb 2026", "label": "Surpasses 100K GitHub stars" },
+          { "year": "Feb 14", "label": "Creator joins OpenAI" },
+          { "year": "Mar 2026", "label": "200K+ stars and foundation" }
+        ]
+      },
+      "duration": 7,
+      "transition": "slide"
+    },
+    {
+      "heading": "What Comes Next",
+      "body": "OpenClaw is now an independent foundation backed by OpenAI. Baidu embedded it for 700 million users. The roadmap includes native task queues, distributed multi-node deployments, and built-in Prometheus observability. We are shifting from tools we operate to systems we supervise.",
+      "image": "generated/openclaw-agents-ch3-0.png",
+      "duration": 7,
+      "transition": "fade"
+    }
+  ],
+  "style": {
+    "backgroundColor": "#0a0a0a",
+    "primaryColor": "#FF6B00",
+    "accentColor": "#00d4ff",
+    "secondaryColor": "#1a1a2e",
+    "textColor": "#ffffff",
+    "mutedColor": "#a0a0b0"
+  }
+}
