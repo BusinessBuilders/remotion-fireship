@@ -8,6 +8,7 @@ import {
 } from "remotion";
 import type { TimelineProps } from "../schema";
 import type { ColorMap } from "../styles/theme";
+import { buildCardGlow, buildEventColors } from "../styles/theme";
 import { SectionTitle } from "../components/SectionTitle";
 import { GridBackground } from "../components/GridBackground";
 import { ParticleBackground } from "../components/ParticleBackground";
@@ -21,6 +22,13 @@ interface TimelineSceneProps {
   fontRegular: CSSProperties;
   fontMono: CSSProperties;
 }
+
+const isLightColor = (hex: string): boolean => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 128;
+};
 
 export const TimelineScene: React.FC<TimelineSceneProps> = ({
   heading,
@@ -50,6 +58,12 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
         seed={`glow-tl-${heading}`}
         intensity={0.04}
       />
+
+      {/* Layered background blobs */}
+      <div style={{ position: "absolute", width: "130%", height: "130%", top: "-30%", left: "-15%", background: `radial-gradient(ellipse at center, ${colors.primary}0a 0%, transparent 55%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      <div style={{ position: "absolute", width: "80%", height: "80%", bottom: "-20%", right: "-10%", background: `radial-gradient(ellipse at center, ${colors.accent}08 0%, transparent 50%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      {/* Bottom fade */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "10%", background: "linear-gradient(to top, rgba(10,10,26,0.5), transparent)", pointerEvents: "none" as const, zIndex: 2 }} />
 
       <div
         style={{
@@ -94,7 +108,7 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
   );
 };
 
-// --- Horizontal (landscape) ---
+// --- Horizontal (landscape) — Infographic Zigzag ---
 const HorizontalTimeline: React.FC<{
   events: { year: string; label: string }[];
   colors: ColorMap;
@@ -103,6 +117,15 @@ const HorizontalTimeline: React.FC<{
   frame: number;
   fps: number;
 }> = ({ events, colors, fontRegular, fontMono, frame, fps }) => {
+  const eventColors = buildEventColors(colors.primary, colors.accent, events.length);
+
+  // Bar draw-in spring
+  const barSpring = spring({
+    fps,
+    frame: frame - 10,
+    config: { damping: 200 },
+  });
+
   return (
     <div
       style={{
@@ -110,121 +133,234 @@ const HorizontalTimeline: React.FC<{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: "0 40px",
       }}
     >
-      {/* Timeline line */}
-      <div style={{ position: "relative", height: 4, marginBottom: 0 }}>
-        {(() => {
-          const lineSpring = spring({
-            fps,
-            frame: frame - 10,
-            config: { damping: 200 },
-          });
-          return (
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                height: 4,
-                width: `${lineSpring * 100}%`,
-                background: `linear-gradient(90deg, ${colors.primary}, ${colors.accent})`,
-                borderRadius: 2,
-              }}
-            />
-          );
-        })()}
-      </div>
-
-      {/* Events */}
+      {/* Top row: even-indexed events (0, 2, 4) with stems pointing down */}
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          position: "relative",
+          justifyContent: "space-around",
+          marginBottom: 8,
+          padding: "0 2%",
         }}
       >
         {events.map((event, i) => {
+          if (i % 2 !== 0) {
+            return (
+              <div
+                key={i}
+                style={{ width: `${90 / events.length}%` }}
+              />
+            );
+          }
+
+          const eventColor = eventColors[i];
           const delay = 20 + i * 10;
-          const dotSpring = spring({
+          const cardSpring = spring({
             fps,
             frame: frame - delay,
-            config: { damping: 100, mass: 1.5 },
-          });
-          const dotScale = interpolate(dotSpring, [0, 1], [0, 1]);
-          const contentSpring = spring({
-            fps,
-            frame: frame - delay - 5,
             config: { damping: 200 },
           });
-          const contentY = interpolate(contentSpring, [0, 1], [30, 0]);
-          const isEven = i % 2 === 0;
-          const accentColor = isEven ? colors.primary : colors.accent;
+          const cardY = interpolate(cardSpring, [0, 1], [-20, 0]);
 
           return (
             <div
               key={i}
               style={{
+                width: `${90 / events.length}%`,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                flex: 1,
+                opacity: cardSpring,
+                transform: `translateY(${cardY}px)`,
               }}
             >
+              {/* Card */}
               <div
                 style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: "50%",
-                  backgroundColor: accentColor,
-                  transform: `scale(${dotScale})`,
-                  boxShadow: `0 0 20px ${accentColor}60`,
-                  marginTop: -12,
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              />
-              <div
-                style={{
-                  width: 2,
-                  height: 40,
-                  backgroundColor: `${accentColor}40`,
-                  opacity: contentSpring,
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 8,
-                  opacity: contentSpring,
-                  transform: `translateY(${contentY}px)`,
-                  padding: "16px 12px",
-                  borderRadius: 12,
-                  background: `${colors.secondary}60`,
-                  border: `1px solid ${accentColor}25`,
-                  minWidth: 120,
+                  background: `linear-gradient(135deg, ${eventColor}1f, ${colors.bg}cc)`,
+                  border: `2px solid ${eventColor}66`,
+                  borderRadius: 14,
+                  padding: "16px 18px",
+                  width: "100%",
+                  boxShadow: buildCardGlow(eventColor),
                 }}
               >
                 <div
                   style={{
-                    ...fontMono,
-                    fontSize: 28,
-                    color: accentColor,
-                    fontWeight: 700,
+                    fontWeight: 800,
+                    fontSize: 22,
+                    color: eventColor,
+                    marginBottom: 4,
                   }}
                 >
-                  {event.year}
+                  {event.label.split(" ").slice(0, 3).join(" ")}
                 </div>
                 <div
                   style={{
                     ...fontRegular,
-                    fontSize: 20,
+                    fontSize: 18,
                     color: colors.text,
-                    textAlign: "center",
-                    lineHeight: 1.3,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {event.label}
+                </div>
+              </div>
+              {/* Connector stem down */}
+              <div
+                style={{
+                  width: 3,
+                  height: 22,
+                  background: `linear-gradient(180deg, ${eventColor}80, ${eventColor}10)`,
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Timeline bar with year badges */}
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          height: 50,
+        }}
+      >
+        {/* Gradient bar */}
+        <div
+          style={{
+            position: "absolute",
+            left: "2%",
+            right: `${(1 - barSpring) * 98 + 2}%`,
+            height: 6,
+            top: 22,
+            background: `linear-gradient(90deg, ${eventColors.join(", ")})`,
+            borderRadius: 4,
+            boxShadow: `0 0 16px ${colors.primary}40, 0 0 32px ${colors.primary}15`,
+          }}
+        />
+        {/* Year pill badges */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          {events.map((event, i) => {
+            const badgeDelay = 15 + i * 8;
+            const badgeSpring = spring({
+              fps,
+              frame: frame - badgeDelay,
+              config: { damping: 100, mass: 1.2 },
+            });
+
+            return (
+              <div
+                key={i}
+                style={{
+                  background: eventColors[i],
+                  color: isLightColor(eventColors[i])
+                    ? colors.bg
+                    : colors.text,
+                  fontWeight: 800,
+                  fontSize: 28,
+                  padding: "6px 18px",
+                  borderRadius: 8,
+                  boxShadow: `0 0 16px ${eventColors[i]}99, 0 4px 12px rgba(0,0,0,0.4)`,
+                  ...fontMono,
+                  letterSpacing: 2,
+                  opacity: badgeSpring,
+                  transform: `scale(${interpolate(badgeSpring, [0, 1], [0.6, 1])})`,
+                }}
+              >
+                {event.year}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Bottom row: odd-indexed events (1, 3) with stems pointing up */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          marginTop: 8,
+          padding: "0 2%",
+        }}
+      >
+        {events.map((event, i) => {
+          if (i % 2 !== 1) {
+            return (
+              <div
+                key={i}
+                style={{ width: `${90 / events.length}%` }}
+              />
+            );
+          }
+
+          const eventColor = eventColors[i];
+          const delay = 20 + i * 10;
+          const cardSpring = spring({
+            fps,
+            frame: frame - delay,
+            config: { damping: 200 },
+          });
+          const cardY = interpolate(cardSpring, [0, 1], [20, 0]);
+
+          return (
+            <div
+              key={i}
+              style={{
+                width: `${90 / events.length}%`,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                opacity: cardSpring,
+                transform: `translateY(${cardY}px)`,
+              }}
+            >
+              {/* Connector stem up */}
+              <div
+                style={{
+                  width: 3,
+                  height: 22,
+                  background: `linear-gradient(0deg, ${eventColor}80, ${eventColor}10)`,
+                }}
+              />
+              {/* Card */}
+              <div
+                style={{
+                  background: `linear-gradient(135deg, ${eventColor}1f, ${colors.bg}cc)`,
+                  border: `2px solid ${eventColor}66`,
+                  borderRadius: 14,
+                  padding: "16px 18px",
+                  width: "100%",
+                  boxShadow: buildCardGlow(eventColor),
+                }}
+              >
+                <div
+                  style={{
+                    fontWeight: 800,
+                    fontSize: 22,
+                    color: eventColor,
+                    marginBottom: 4,
+                  }}
+                >
+                  {event.label.split(" ").slice(0, 3).join(" ")}
+                </div>
+                <div
+                  style={{
+                    ...fontRegular,
+                    fontSize: 18,
+                    color: colors.text,
+                    lineHeight: 1.5,
                   }}
                 >
                   {event.label}
@@ -247,6 +383,15 @@ const VerticalTimeline: React.FC<{
   frame: number;
   fps: number;
 }> = ({ events, colors, fontRegular, fontMono, frame, fps }) => {
+  const eventColors = buildEventColors(colors.primary, colors.accent, events.length);
+
+  // Vertical bar draw-in
+  const barSpring = spring({
+    fps,
+    frame: frame - 10,
+    config: { damping: 200 },
+  });
+
   return (
     <div
       style={{
@@ -257,40 +402,34 @@ const VerticalTimeline: React.FC<{
         padding: "0 20px",
       }}
     >
-      {/* Vertical line + dots */}
-      <div style={{ position: "relative", width: 40, marginRight: 20 }}>
-        {(() => {
-          const lineSpring = spring({
-            fps,
-            frame: frame - 10,
-            config: { damping: 200 },
-          });
-          return (
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 18,
-                width: 4,
-                height: `${lineSpring * 100}%`,
-                background: `linear-gradient(180deg, ${colors.primary}, ${colors.accent})`,
-                borderRadius: 2,
-              }}
-            />
-          );
-        })()}
+      {/* Vertical progress bar */}
+      <div style={{ position: "relative", width: 40, marginRight: 24 }}>
+        {/* Gradient bar */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 17,
+            width: 6,
+            height: `${barSpring * 100}%`,
+            background: `linear-gradient(180deg, ${eventColors.join(", ")})`,
+            borderRadius: 4,
+            boxShadow: `0 0 16px ${colors.primary}40, 0 0 32px ${colors.primary}15`,
+          }}
+        />
 
-        {events.map((_, i) => {
-          const delay = 20 + i * 10;
-          const dotSpring = spring({
+        {/* Year badges on the bar */}
+        {events.map((event, i) => {
+          const delay = 15 + i * 8;
+          const badgeSpring = spring({
             fps,
             frame: frame - delay,
-            config: { damping: 100, mass: 1.5 },
+            config: { damping: 100, mass: 1.2 },
           });
-          const dotScale = interpolate(dotSpring, [0, 1], [0, 1]);
-          const isEven = i % 2 === 0;
-          const accentColor = isEven ? colors.primary : colors.accent;
-          const topPos = `${(i / (events.length - 1)) * 100}%`;
+          const topPos =
+            events.length > 1
+              ? `${(i / (events.length - 1)) * 100}%`
+              : "50%";
 
           return (
             <div
@@ -298,16 +437,26 @@ const VerticalTimeline: React.FC<{
               style={{
                 position: "absolute",
                 top: topPos,
-                left: 10,
-                width: 20,
-                height: 20,
-                borderRadius: "50%",
-                backgroundColor: accentColor,
-                transform: `scale(${dotScale}) translateY(-50%)`,
-                boxShadow: `0 0 20px ${accentColor}60`,
+                left: -18,
+                transform: `translateY(-50%) scale(${interpolate(badgeSpring, [0, 1], [0.6, 1])})`,
+                background: eventColors[i],
+                color: isLightColor(eventColors[i])
+                  ? colors.bg
+                  : colors.text,
+                ...fontMono,
+                fontWeight: 800,
+                fontSize: 26,
+                padding: "4px 14px",
+                borderRadius: 8,
+                boxShadow: `0 0 16px ${eventColors[i]}99, 0 4px 12px rgba(0,0,0,0.4)`,
+                letterSpacing: 2,
+                opacity: badgeSpring,
                 zIndex: 1,
+                whiteSpace: "nowrap" as const,
               }}
-            />
+            >
+              {event.year}
+            </div>
           );
         })}
       </div>
@@ -322,48 +471,44 @@ const VerticalTimeline: React.FC<{
         }}
       >
         {events.map((event, i) => {
+          const eventColor = eventColors[i];
           const delay = 20 + i * 10;
-          const contentSpring = spring({
+          const cardSpring = spring({
             fps,
             frame: frame - delay - 5,
             config: { damping: 200 },
           });
-          const contentX = interpolate(contentSpring, [0, 1], [30, 0]);
-          const isEven = i % 2 === 0;
-          const accentColor = isEven ? colors.primary : colors.accent;
+          const cardX = interpolate(cardSpring, [0, 1], [30, 0]);
 
           return (
             <div
               key={i}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                opacity: contentSpring,
-                transform: `translateX(${contentX}px)`,
-                padding: "12px 16px",
-                borderRadius: 12,
-                background: `${colors.secondary}60`,
-                border: `1px solid ${accentColor}25`,
+                opacity: cardSpring,
+                transform: `translateX(${cardX}px)`,
+                background: `linear-gradient(135deg, ${eventColor}1f, ${colors.bg}cc)`,
+                border: `2px solid ${eventColor}66`,
+                borderRadius: 14,
+                padding: "16px 18px",
+                boxShadow: buildCardGlow(eventColor),
               }}
             >
               <div
                 style={{
-                  ...fontMono,
+                  fontWeight: 800,
                   fontSize: 22,
-                  color: accentColor,
-                  fontWeight: 700,
-                  flexShrink: 0,
+                  color: eventColor,
+                  marginBottom: 4,
                 }}
               >
-                {event.year}
+                {event.label.split(" ").slice(0, 3).join(" ")}
               </div>
               <div
                 style={{
                   ...fontRegular,
-                  fontSize: 18,
+                  fontSize: 20,
                   color: colors.text,
-                  lineHeight: 1.3,
+                  lineHeight: 1.5,
                 }}
               >
                 {event.label}
