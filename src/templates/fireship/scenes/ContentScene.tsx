@@ -68,6 +68,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
             <SectionTitle
               title={section.heading}
               accentColor={colors.primary}
+              primaryColor={colors.primary}
               textColor={colors.text}
               fontStyle={fontBold}
               monoStyle={fontMono}
@@ -136,6 +137,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           <SectionTitle
             title={section.heading}
             accentColor={colors.primary}
+            primaryColor={colors.primary}
             textColor={colors.text}
             fontStyle={fontBold}
             monoStyle={fontMono}
@@ -206,6 +208,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
         <SectionTitle
           title={section.heading}
           accentColor={colors.primary}
+          primaryColor={colors.primary}
           textColor={colors.text}
           fontStyle={fontBold}
           monoStyle={fontMono}

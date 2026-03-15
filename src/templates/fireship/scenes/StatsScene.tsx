@@ -146,6 +146,7 @@ export const StatsScene: React.FC<StatsSceneProps> = ({
         <SectionTitle
           title={heading}
           accentColor={colors.primary}
+          primaryColor={colors.primary}
           textColor={colors.text}
           fontStyle={fontBold}
           monoStyle={fontMono}

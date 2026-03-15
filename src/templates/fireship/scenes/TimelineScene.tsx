@@ -64,6 +64,7 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
         <SectionTitle
           title={heading}
           accentColor={colors.primary}
+          primaryColor={colors.primary}
           textColor={colors.text}
           fontStyle={fontBold}
           monoStyle={fontMono}

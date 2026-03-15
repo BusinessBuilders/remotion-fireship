@@ -70,6 +70,7 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
         <SectionTitle
           title={section.heading}
           accentColor={colors.primary}
+          primaryColor={colors.primary}
           textColor={colors.text}
           fontStyle={fontBold}
           monoStyle={fontMono}
