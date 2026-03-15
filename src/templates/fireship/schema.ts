@@ -61,7 +61,7 @@ const timelineSchema = z.object({
 });
 
 const transitionEnum = z
-  .enum(["slide", "fade", "wipe", "zoom", "glitch"])
+  .enum(["slide", "fade", "wipe", "zoom", "glitch", "clockWipe", "flip", "iris"])
   .default("fade");
 
 const imageFrameEnum = z

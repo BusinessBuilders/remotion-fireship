@@ -1,8 +1,11 @@
-import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
-import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { AbsoluteFill, Audio, Sequence, staticFile, useVideoConfig } from "remotion";
+import { TransitionSeries, springTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
 import { wipe } from "@remotion/transitions/wipe";
+import { clockWipe } from "@remotion/transitions/clock-wipe";
+import { flip } from "@remotion/transitions/flip";
+import { iris } from "@remotion/transitions/iris";
 
 import type { TransitionPresentation } from "@remotion/transitions";
 import type { FireshipProps } from "./schema";
@@ -28,7 +31,11 @@ const { INTRO_SECONDS, OUTRO_SECONDS, TRANSITION_FRAMES, FPS } = TIMING;
 
 type AnyPresentation = TransitionPresentation<Record<string, unknown>>;
 
-const getPresentation = (transition: string): AnyPresentation => {
+const getPresentation = (
+  transition: string,
+  width: number,
+  height: number,
+): AnyPresentation => {
   switch (transition) {
     case "slide":
       return slide({ direction: "from-right" }) as AnyPresentation;
@@ -38,6 +45,12 @@ const getPresentation = (transition: string): AnyPresentation => {
       return glitch() as unknown as AnyPresentation;
     case "zoom":
       return slide({ direction: "from-bottom" }) as AnyPresentation;
+    case "clockWipe":
+      return clockWipe({ width, height }) as unknown as AnyPresentation;
+    case "flip":
+      return flip() as unknown as AnyPresentation;
+    case "iris":
+      return iris({ width, height }) as unknown as AnyPresentation;
     case "fade":
     default:
       return fade() as AnyPresentation;
@@ -58,6 +71,8 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
     watermark,
     lightLeaks,
   } = props;
+
+  const { width, height } = useVideoConfig();
 
   const colors = buildColors(style);
   const fontBold = buildFontBold(FONT_FAMILIES.sans);
@@ -191,8 +206,9 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
           return [
             <TransitionSeries.Transition
               key={`t-${i}`}
-              presentation={getPresentation(section.transition)}
-              timing={linearTiming({
+              presentation={getPresentation(section.transition, width, height)}
+              timing={springTiming({
+                config: { damping: 200 },
                 durationInFrames: TRANSITION_FRAMES,
               })}
             />,
@@ -208,7 +224,10 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
         {/* Outro transition + scene */}
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={linearTiming({ durationInFrames: TRANSITION_FRAMES })}
+          timing={springTiming({
+            config: { damping: 200 },
+            durationInFrames: TRANSITION_FRAMES,
+          })}
         />
         <TransitionSeries.Sequence durationInFrames={outroFrames}>
           <OutroScene
@@ -237,7 +256,7 @@ export const Fireship: React.FC<FireshipProps> = (props) => {
                 color1={colors.primary}
                 color2={colors.accent}
                 seed={`leak-${i}`}
-                intensity={0.3}
+                intensity={0.4}
               />
             </Sequence>
           );
