@@ -57,6 +57,10 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
         intensity={0.05}
       />
 
+      {/* Background blobs */}
+      <div style={{ position: "absolute", width: "120%", height: "120%", top: "-20%", left: "-10%", background: `radial-gradient(ellipse at center, ${colors.primary}0a 0%, transparent 50%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "10%", background: "linear-gradient(to top, rgba(10,10,26,0.4), transparent)", pointerEvents: "none" as const }} />
+
       {/* Content */}
       <div
         style={{
@@ -64,7 +68,7 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
           flexDirection: "column",
           height: "100%",
           padding: isPortrait ? "40px 40px" : "60px 100px",
-          gap: 30,
+          gap: 20,
         }}
       >
         <SectionTitle
@@ -94,17 +98,27 @@ export const DiagramScene: React.FC<DiagramSceneProps> = ({
 
         {/* Optional body text */}
         {section.body && (
-          <div
-            style={{
-              ...fontRegular,
-              fontSize: 26,
-              color: colors.muted,
-              textAlign: "center",
-              opacity: bodySpring,
-              lineHeight: 1.5,
-            }}
-          >
-            {section.body}
+          <div style={{
+            background: `linear-gradient(135deg, ${colors.primary}14, ${colors.secondary}80)`,
+            border: `1px solid ${colors.primary}30`,
+            borderRadius: 14,
+            padding: "16px 28px",
+            maxWidth: "80%",
+            margin: "0 auto",
+          }}>
+            <div
+              style={{
+                ...fontRegular,
+                fontSize: 36,
+                color: colors.text,
+                textAlign: "center",
+                opacity: bodySpring,
+                lineHeight: 1.5,
+                textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+              }}
+            >
+              {section.body}
+            </div>
           </div>
         )}
       </div>

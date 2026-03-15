@@ -6,6 +6,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { ColorMap } from "../styles/theme";
+import { buildEventColors, buildCardGlow } from "../styles/theme";
 import { ICON_MAP } from "./TechIcons";
 
 interface FlowNode {
@@ -64,9 +65,11 @@ const HorizontalFlow: React.FC<{
   fps: number;
   containerWidth: number;
 }> = ({ nodes, colors, fontBold, frame, fps, containerWidth }) => {
-  const NODE_WIDTH = 190;
-  const NODE_HEIGHT = 160;
+  const NODE_WIDTH = 240;
+  const NODE_HEIGHT = 180;
   const ARROW_GAP = 50;
+
+  const nodeColors = buildEventColors(colors.primary, colors.accent, nodes.length);
 
   const totalWidth =
     nodes.length * NODE_WIDTH + (nodes.length - 1) * ARROW_GAP;
@@ -103,6 +106,7 @@ const HorizontalFlow: React.FC<{
           const midY = 150;
           const arrowLen = x2 - x1;
           const currentX2 = x1 + arrowLen * arrowProgress;
+          const arrowColor = nodeColors[i + 1] ?? colors.accent;
 
           return (
             <g key={`arrow-${i}`} opacity={arrowSpring}>
@@ -111,24 +115,24 @@ const HorizontalFlow: React.FC<{
                 y1={midY}
                 x2={currentX2}
                 y2={midY}
-                stroke={colors.primary}
-                strokeWidth={2}
+                stroke={arrowColor}
+                strokeWidth={14}
+                opacity={0.15}
               />
-              {arrowProgress > 0.8 && (
-                <polygon
-                  points={`${currentX2},${midY - 6} ${currentX2 + 12},${midY} ${currentX2},${midY + 6}`}
-                  fill={colors.primary}
-                />
-              )}
               <line
                 x1={x1}
                 y1={midY}
                 x2={currentX2}
                 y2={midY}
-                stroke={colors.primary}
-                strokeWidth={10}
-                opacity={0.2}
+                stroke={arrowColor}
+                strokeWidth={5}
               />
+              {arrowProgress > 0.8 && (
+                <polygon
+                  points={`${currentX2},${midY - 7} ${currentX2 + 14},${midY} ${currentX2},${midY + 7}`}
+                  fill={arrowColor}
+                />
+              )}
             </g>
           );
         })}
@@ -147,6 +151,7 @@ const HorizontalFlow: React.FC<{
 
         const nodeX = startX + i * (NODE_WIDTH + ARROW_GAP);
         const IconComponent = node.icon ? ICON_MAP[node.icon] : null;
+        const nodeColor = nodeColors[i];
 
         return (
           <div
@@ -164,25 +169,25 @@ const HorizontalFlow: React.FC<{
               alignItems: "center",
               justifyContent: "center",
               gap: 14,
-              background: `linear-gradient(135deg, ${colors.secondary}dd, ${colors.bg}bb)`,
+              background: `linear-gradient(135deg, ${nodeColor}22, ${colors.bg}bb)`,
               borderRadius: 20,
-              border: `2px solid ${isActive ? colors.primary : colors.muted}44`,
+              border: `2px solid ${isActive ? nodeColor : colors.muted}44`,
               boxShadow: isActive
-                ? `0 0 50px ${colors.primary}50, 0 0 100px ${colors.primary}20, inset 0 0 30px ${colors.primary}10`
-                : `0 0 25px ${colors.primary}15`,
+                ? buildCardGlow(nodeColor)
+                : `0 0 25px ${nodeColor}15`,
             }}
           >
             {IconComponent && (
               <IconComponent
-                size={48}
-                color={isActive ? colors.primary : colors.text}
-                glowColor={isActive ? colors.primary : undefined}
+                size={60}
+                color={isActive ? nodeColor : colors.text}
+                glowColor={isActive ? nodeColor : undefined}
               />
             )}
             <div
               style={{
                 ...fontBold,
-                fontSize: 18,
+                fontSize: 20,
                 color: colors.text,
                 textAlign: "center",
                 lineHeight: 1.2,
@@ -207,11 +212,13 @@ const VerticalFlow: React.FC<{
   fps: number;
   containerWidth: number;
 }> = ({ nodes, colors, fontBold, frame, fps, containerWidth }) => {
-  const NODE_WIDTH = 200;
-  const NODE_HEIGHT = 120;
+  const NODE_WIDTH = 240;
+  const NODE_HEIGHT = 150;
   const ARROW_GAP = 40;
   const totalHeight =
     nodes.length * NODE_HEIGHT + (nodes.length - 1) * ARROW_GAP;
+
+  const nodeColors = buildEventColors(colors.primary, colors.accent, nodes.length);
 
   return (
     <div
@@ -245,6 +252,7 @@ const VerticalFlow: React.FC<{
           const y2 = (i + 1) * (NODE_HEIGHT + ARROW_GAP) - 5;
           const arrowLen = y2 - y1;
           const currentY2 = y1 + arrowLen * arrowProgress;
+          const arrowColor = nodeColors[i + 1] ?? colors.accent;
 
           return (
             <g key={`arrow-${i}`} opacity={arrowSpring}>
@@ -253,24 +261,24 @@ const VerticalFlow: React.FC<{
                 y1={y1}
                 x2={midX}
                 y2={currentY2}
-                stroke={colors.primary}
-                strokeWidth={2}
+                stroke={arrowColor}
+                strokeWidth={10}
+                opacity={0.2}
               />
-              {arrowProgress > 0.8 && (
-                <polygon
-                  points={`${midX - 6},${currentY2} ${midX},${currentY2 + 12} ${midX + 6},${currentY2}`}
-                  fill={colors.primary}
-                />
-              )}
               <line
                 x1={midX}
                 y1={y1}
                 x2={midX}
                 y2={currentY2}
-                stroke={colors.primary}
-                strokeWidth={10}
-                opacity={0.2}
+                stroke={arrowColor}
+                strokeWidth={5}
               />
+              {arrowProgress > 0.8 && (
+                <polygon
+                  points={`${midX - 7},${currentY2} ${midX},${currentY2 + 14} ${midX + 7},${currentY2}`}
+                  fill={arrowColor}
+                />
+              )}
             </g>
           );
         })}
@@ -289,6 +297,7 @@ const VerticalFlow: React.FC<{
 
         const nodeTop = i * (NODE_HEIGHT + ARROW_GAP);
         const IconComponent = node.icon ? ICON_MAP[node.icon] : null;
+        const nodeColor = nodeColors[i];
 
         return (
           <div
@@ -306,25 +315,25 @@ const VerticalFlow: React.FC<{
               alignItems: "center",
               justifyContent: "center",
               gap: 14,
-              background: `linear-gradient(135deg, ${colors.secondary}dd, ${colors.bg}bb)`,
+              background: `linear-gradient(135deg, ${nodeColor}22, ${colors.bg}bb)`,
               borderRadius: 20,
-              border: `2px solid ${isActive ? colors.primary : colors.muted}44`,
+              border: `2px solid ${isActive ? nodeColor : colors.muted}44`,
               boxShadow: isActive
-                ? `0 0 50px ${colors.primary}50, 0 0 100px ${colors.primary}20, inset 0 0 30px ${colors.primary}10`
-                : `0 0 25px ${colors.primary}15`,
+                ? buildCardGlow(nodeColor)
+                : `0 0 25px ${nodeColor}15`,
             }}
           >
             {IconComponent && (
               <IconComponent
-                size={40}
-                color={isActive ? colors.primary : colors.text}
-                glowColor={isActive ? colors.primary : undefined}
+                size={50}
+                color={isActive ? nodeColor : colors.text}
+                glowColor={isActive ? nodeColor : undefined}
               />
             )}
             <div
               style={{
                 ...fontBold,
-                fontSize: 16,
+                fontSize: 18,
                 color: colors.text,
                 textAlign: "center",
                 lineHeight: 1.2,
