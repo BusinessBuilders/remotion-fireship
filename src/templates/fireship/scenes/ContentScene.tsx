@@ -116,7 +116,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
     );
   }
 
-  // Image layout: title top, browser frame center, text below
+  // Image layout: side-by-side in landscape, stacked in portrait
   if (image) {
     const resolvedImage = image.startsWith("http") ? image : staticFile(image);
     return (
@@ -124,6 +124,13 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
         <GridBackground color={colors.primary} opacity={0.03} animated />
         <ParticleBackground colors={[colors.primary, colors.accent]} count={8} seed={`content-img-${section.heading}`} opacity={0.15} />
         <GlowOrb colors={[colors.primary, colors.accent]} count={2} seed={`glow-ci-${section.heading}`} intensity={0.04} />
+        {/* Layered background blobs */}
+        <div style={{ position: "absolute", width: "120%", height: "120%", top: "-20%", right: "-25%", background: `radial-gradient(ellipse at center, ${colors.primary}15 0%, transparent 55%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+        <div style={{ position: "absolute", width: "80%", height: "100%", bottom: "-25%", left: "-8%", background: `radial-gradient(ellipse at center, ${colors.accent}0a 0%, transparent 50%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+        {/* Decorative ring */}
+        <div style={{ position: "absolute", width: 400, height: 400, right: "-3%", top: "-8%", border: `1px solid ${colors.primary}0d`, borderRadius: "50%", pointerEvents: "none" as const }} />
+        {/* Bottom fade */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "12%", background: "linear-gradient(to top, rgba(10,10,26,0.5), transparent)", pointerEvents: "none" as const }} />
         <div
           style={{
             position: "relative",
@@ -145,44 +152,62 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           <div style={{
             flex: 1,
             display: "flex",
+            flexDirection: isPortrait ? "column" : "row",
             justifyContent: "center",
             alignItems: "center",
+            gap: isPortrait ? 24 : 40,
           }}>
-            {section.imageFrame === "browser" ? (
-              <BrowserFrame
-                src={image}
-                borderColor={colors.secondary}
-              />
-            ) : (
-              <div
-                style={{
-                  borderRadius: 20,
-                  overflow: "hidden",
-                  boxShadow: `0 0 120px ${colors.primary}40, 0 0 60px ${colors.accent}20, 0 12px 48px rgba(0,0,0,0.8)`,
-                  border: `2px solid ${colors.primary}35`,
-                  opacity: spring({ fps, frame, config: { damping: 200 } }),
-                  transform: `scale(${interpolate(spring({ fps, frame, config: { damping: 200 } }), [0, 1], [0.88, 1])})`,
-                }}
-              >
-                <Img
-                  src={resolvedImage}
-                  style={{ maxHeight: isPortrait ? 500 : 750, maxWidth: isPortrait ? 900 : 1400, objectFit: "contain", display: "block" }}
-                />
+            {/* Text panel */}
+            {section.body && (
+              <div style={{ flex: isPortrait ? "none" : "0 0 45%" }}>
+                <div
+                  style={{
+                    ...fontRegular,
+                    fontSize: isPortrait ? 28 : 38,
+                    color: colors.text,
+                    lineHeight: 1.6,
+                    textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  {animatedBody}
+                </div>
+                {/* Gradient divider */}
+                <div style={{ display: "flex", gap: 5, marginTop: 12 }}>
+                  <div style={{ width: 60, height: 3, background: `linear-gradient(90deg, ${colors.primary}, transparent)`, borderRadius: 2 }} />
+                  <div style={{ width: 20, height: 3, background: `${colors.accent}30`, borderRadius: 2 }} />
+                </div>
               </div>
             )}
-          </div>
-          {section.body && (
-            <div
-              style={{
-                ...fontRegular,
-                fontSize: 26,
-                color: colors.muted,
-                textAlign: "center",
-              }}
-            >
-              {animatedBody}
+            {/* Image panel */}
+            <div style={{ flex: isPortrait ? "none" : "0 0 50%" }}>
+              {section.imageFrame === "browser" ? (
+                <BrowserFrame
+                  src={image}
+                  borderColor={colors.secondary}
+                />
+              ) : (
+                <div style={{ position: "relative" }}>
+                  {/* Glow halo */}
+                  <div style={{ position: "absolute", inset: "-12%", background: `radial-gradient(ellipse at center, ${colors.primary}20 0%, transparent 60%)`, pointerEvents: "none" as const }} />
+                  <div
+                    style={{
+                      borderRadius: 16,
+                      overflow: "hidden",
+                      boxShadow: `0 0 60px ${colors.primary}40, 0 0 120px ${colors.primary}15, 0 20px 60px rgba(0,0,0,0.7)`,
+                      border: `2px solid ${colors.primary}40`,
+                      opacity: spring({ fps, frame, config: { damping: 200 } }),
+                      transform: `scale(${interpolate(spring({ fps, frame, config: { damping: 200 } }), [0, 1], [0.88, 1])})`,
+                    }}
+                  >
+                    <Img
+                      src={resolvedImage}
+                      style={{ maxHeight: isPortrait ? 300 : 400, maxWidth: isPortrait ? 600 : 900, objectFit: "contain", display: "block" }}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </AbsoluteFill>
     );
