@@ -120,16 +120,16 @@ Follow the selected arc pattern. Scene types CAN repeat — a long video should 
 - **Target total: 120-240 seconds (2-4 minutes)**
 
 ### Transition Strategy
-Same rules as `/makevid` but with more variety needed across 15-20 transitions:
-- **Chapter openers**: `slide` (signals new chapter)
-- **Technical/architecture**: `wipe` (reveals content)
+Same rules as `/makevid` but with more variety needed across 15-20 transitions. 8 types available: `slide`, `fade`, `wipe`, `zoom`, `glitch`, `clockWipe`, `flip`, `iris`:
+- **Chapter openers**: `slide` or `iris` (signals new chapter with impact)
+- **Technical/architecture**: `wipe` or `clockWipe` (reveals content)
 - **Stats/evidence**: `fade` (smooth)
-- **Dramatic moments**: `glitch` (max 2 uses in entire video)
-- **Code sections**: `fade` (keep focus on code)
+- **Dramatic moments**: `glitch` or `flip` (max 2-3 uses in entire video)
+- **Code sections**: `fade` or `clockWipe` (circular reveal for variety)
 - **Timeline/history**: `slide`
-- **Within a chapter**: alternate between `fade` and `wipe` for flow
+- **Within a chapter**: rotate through `fade`, `wipe`, `iris`, `clockWipe` for flow
 - **Never use the same transition twice in a row**
-- Available: `slide`, `fade`, `wipe`, `zoom`, `glitch`
+- All transitions use `springTiming` for organic motion
 
 ### Validate
 Schema is at `~/remotion-fireship/src/templates/fireship/schema.ts` — read it if unsure.

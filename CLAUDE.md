@@ -52,8 +52,8 @@ Remotion v4.0.332 video generation project with a data-driven Fireship-style "X 
 |-------|--------------|-------------|
 | StatsScene | `section.stats` | Animated number counters (2-4 stat cards) |
 | QuoteScene | `section.quote` | Word-by-word quote reveal with attribution |
-| TimelineScene | `section.timeline` | Horizontal timeline with staggered events |
-| DiagramScene | `section.diagram` | Flow chart with SVG icons + arrows |
+| TimelineScene | `section.timeline` | Infographic zigzag with per-event color coding |
+| DiagramScene | `section.diagram` | Flow chart with per-node colors + gradient connectors |
 | ComparisonScene | `section.comparison` | Side-by-side with VS divider |
 | CodeScene | `section.codeSnippet` (no image) | Syntax-highlighted code |
 | ContentScene | (default) | Text/bullets/images |
@@ -74,9 +74,30 @@ else                → ContentScene     (text/bullets/images)
 ### Available Diagram Icons (20)
 `brain`, `database`, `search`, `cube`, `robot`, `code`, `cloud`, `api`, `lock`, `lightning`, `server`, `terminal`, `git`, `docker`, `kubernetes`, `aws`, `globe`, `chart`, `shield`, `rocket`
 
+### Theme Utilities (`styles/theme.ts`)
+- `buildTextGlow(color, intensity?)` — triple-layer bloom text glow
+- `buildCardGlow(color)` — glass card box-shadow
+- `buildEventColors(primary, accent, count)` — per-element color palette
+
+### SectionTitle Props
+- `primaryColor: string` (required) — used for bloom glow + gradient
+- `label?: string` — small uppercase accent label above title
+- `glowIntensity?: number` — scale glow (default 1.0, use 0.7 on heavy-bg scenes)
+- Title renders at 80px landscape / 48px portrait with gradient text + bloom
+
+### Visual Standards
+- **Title:** 80px with gradient text + bloom glow (automatic via SectionTitle)
+- **Body text:** 38px+ white (not gray/muted), with `textShadow` for readability
+- **Bullets:** Glass card grid with per-card colors (not dots)
+- **Images:** maxHeight 400px, side-by-side layout, triple-layer glow border
+- **Timeline:** Infographic zigzag — cards above/below bar, per-event colors, year pill badges
+- **Diagram:** Per-node colors, 5px gradient connectors with bloom, glass body panel
+- **Backgrounds:** Layered organic blobs + decorative rings + floating dots on every scene
+- **Transitions:** 8 types with `springTiming` — slide, fade, wipe, zoom, glitch, clockWipe, flip, iris
+
 ### Light Leaks
 - Controlled by `lightLeaks: boolean` (default `true`) in the schema
-- Animated translucent color wash overlays placed every 3 transitions
+- Animated translucent color wash overlays placed every 3 transitions, intensity 0.4
 - Uses `simplex-noise` + `alea` for organic movement
 
 ### Preview & Render

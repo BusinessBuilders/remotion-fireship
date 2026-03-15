@@ -75,14 +75,15 @@ Use ALL available scene types for visual variety:
 - **ComparisonScene**: side-by-side with VS divider (e.g., old vs new, tool A vs B)
 
 ### Transition Strategy (smooth flow)
-Transitions should feel cinematic, not random. Follow this pattern:
+Transitions should feel cinematic, not random. 8 types available: `slide`, `fade`, `wipe`, `zoom`, `glitch`, `clockWipe`, `flip`, `iris`. Follow this pattern:
 - **Opening sections**: `slide` (clean, directional)
-- **Technical/architecture sections**: `wipe` (reveals content)
+- **Technical/architecture sections**: `wipe` or `iris` (reveals content)
 - **Impact/stats sections**: `fade` (smooth, no distraction)
-- **Dramatic moments (quotes, key insights)**: `glitch` (attention-grabbing, use sparingly — max 1-2 times)
+- **Dramatic moments (quotes, key insights)**: `glitch` or `flip` (attention-grabbing, use sparingly — max 1-2 times)
 - **Timeline/history**: `slide` (left-to-right feels like progression)
-- **Code sections**: `fade` (keep focus on code)
+- **Code sections**: `fade` or `clockWipe` (circular reveal for variety)
 - **Never use the same transition twice in a row**
+- All transitions use `springTiming` for organic motion (25 frames)
 
 ### Timing
 - Sections with more text/bullets: 6-7 seconds
@@ -360,7 +361,7 @@ Save to `data/videos/{slug}-description.md` and display the full description to 
       "quote": { "text": "...", "author": "Name", "role": "Title" },
       "timeline": { "events": [{ "year": "2024", "label": "Event" }] },
       "duration": 5,
-      "transition": "slide|fade|wipe|zoom|glitch"
+      "transition": "slide|fade|wipe|zoom|glitch|clockWipe|flip|iris"
     }
   ],
   "style": {
