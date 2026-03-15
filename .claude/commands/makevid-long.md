@@ -237,12 +237,13 @@ npx ts-node scripts/flux-images.ts \
 
 **Use unique slugs per image** (e.g., `{slug}-ch1`, `{slug}-ch2`) to prevent the script from overwriting previous images (it always saves as `-0.png`).
 
-**Prompt guidelines:**
-- Match accent colors to the video's style palette
-- Dark backgrounds always
-- Each image for a different chapter's concept
-- Cinematic and specific — avoid generic prompts
-- No commas (script splits on commas)
+**Flux Prompt Formula:** `[CONCRETE SUBJECT] + [ENVIRONMENT] + [LIGHTING] + [CAMERA] + [MOOD]`
+
+**DO:** Lead with a concrete subject (robot, server rack, circuit board). Specify camera angle and lighting. Use semicolons not commas. Always include "dark background". Each image for a different chapter's concept.
+
+**DON'T:** Ask Flux to render text. Use vague descriptions ("futuristic concept"). Use commas (script splits on them).
+
+See `docs/IMAGE-GUIDE.md` for full prompt rules and examples.
 
 4. Reference in JSON as `"image": "generated/{slug}-ch1-0.png"` etc. on ContentScene sections
 
@@ -292,41 +293,34 @@ Report output paths, durations, and file sizes for all renders.
 
 ---
 
-## Step 6: Generate Viral Thumbnail via Flux on Nova
+## Step 6: Generate Viral Thumbnail (Flux + Remotion)
 
-**Every video needs a click-worthy thumbnail.** Generate one using Flux.
+**Two-step process:** Flux generates the base image, Remotion overlays styled text.
 
-### 6a. Research viral thumbnail patterns
-Run a quick search to inform the thumbnail concept:
-```
-mcp__tavily__searchQNA — "what makes a viral YouTube thumbnail 2025 2026 best practices"
-```
-
-Key principles to apply:
-- **Bold contrast** — bright subject on dark background
-- **One clear focal point** — don't clutter
-- **Faces or characters with emotion** work best
-- **Implied tension or curiosity** — something unexpected
-- **Readable at small size** — simple composition
-- **Match the video's color palette** (primaryColor + accentColor)
-
-### 6b. Generate the thumbnail
+### 6a. Generate base image with Flux
+Focus on ONE dramatic concrete subject — no text, no clutter:
 ```bash
 cd ~/remotion-fireship && npx ts-node scripts/flux-images.ts \
-  --descriptions "THUMBNAIL PROMPT HERE — bold subject; dark background; high contrast; YouTube thumbnail style; cinematic; {topic} themed" \
+  --descriptions "CONCRETE DRAMATIC SUBJECT; dark background; bold contrast; single focal point; cinematic wide angle; {video accent colors}" \
   --slug "{slug}-thumb" --width 1280 --height 720
 ```
 
-**Prompt tips for thumbnails:**
-- Include the main visual metaphor from the video
-- Specify "YouTube thumbnail composition" in the prompt
-- Use the video's accent colors explicitly
-- Make it dramatic — thumbnails reward exaggeration
-- No commas in the prompt (script splits on commas)
+**Good thumbnail base prompts:**
+- `"close-up of robotic hand typing on glowing keyboard; dark background; amber neon rim lighting; dramatic shallow depth of field"`
+- `"massive glowing brain made of circuit boards; floating in dark void; blue and orange spotlights; cinematic wide shot"`
 
-Output: `public/generated/{slug}-thumb-0.png` (1280x720)
+### 6b. Overlay text with Remotion
+```bash
+npx remotion still src/index.tsx FireshipThumbnail \
+  out/{slug}-thumbnail.png \
+  --props='{"backgroundImage":"generated/{slug}-thumb-0.png","title":"{SHORT PUNCHY TITLE}","subtitle":"{OPTIONAL SUBTITLE}","primaryColor":"{primaryColor}","accentColor":"{accentColor}","textPosition":"bottom-left"}'
+```
 
-Report the thumbnail path so the user can add text overlay in their editor.
+**Text position options:** `"bottom-left"` (default, most viral), `"left"` (side gradient), `"center"` (radial vignette)
+
+**Title tips:** Keep under 4 words. Bold. Curiosity-inducing. Examples: "It Changed Everything", "This Broke GitHub", "The $2.5B Agent"
+
+Output: `out/{slug}-thumbnail.png` (1280x720, ready to upload)
 
 ---
 

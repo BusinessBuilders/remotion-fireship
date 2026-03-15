@@ -38,3 +38,4 @@ export const calculateFireshipTikTokMetadata: CalculateMetadataFunction<
 
 export { Fireship, fireshipSchema };
 export type { FireshipProps };
+export { FireshipThumbnail, thumbnailSchema } from "./FireshipThumbnail";

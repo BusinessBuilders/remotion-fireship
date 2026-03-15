@@ -1,4 +1,4 @@
-import { Composition, Folder } from "remotion";
+import { Composition, Folder, Still } from "remotion";
 
 import { AIVideo } from "./AIVideo/index";
 import { AppIntro } from "./AppIntro/index";
@@ -7,6 +7,8 @@ import {
   fireshipSchema,
   calculateFireshipMetadata,
   calculateFireshipTikTokMetadata,
+  FireshipThumbnail,
+  thumbnailSchema,
 } from "./templates/fireship/index";
 import { Remotion } from "./Video/index";
 import { CheckOnGithub } from "./Video/CheckOnGithub/Github";
@@ -267,6 +269,21 @@ export const RemotionVideo = () => {
           height={1920}
           fps={30}
           durationInFrames={300}
+        />
+        <Still
+          id="FireshipThumbnail"
+          component={FireshipThumbnail}
+          schema={thumbnailSchema}
+          defaultProps={{
+            backgroundImage: "generated/placeholder.png",
+            title: "Topic Name",
+            primaryColor: "#FF6B00",
+            accentColor: "#00d4ff",
+            backgroundColor: "#0a0a1a",
+            textPosition: "bottom-left",
+          }}
+          width={1280}
+          height={720}
         />
       </Folder>
     </>

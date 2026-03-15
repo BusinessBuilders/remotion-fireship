@@ -167,28 +167,31 @@ If Chatterbox fails or no GPU is available, skip — the video works without voi
 
 ## Step 4: Generate Images via Flux on Nova
 
-**Generate exactly 2 eye-catching images** for the video. Images should be cinematic and match the dark Fireship aesthetic.
+**Generate exactly 2 eye-catching images** for the video. See `docs/IMAGE-GUIDE.md` for full prompt rules.
 
 1. Check nova: `ssh nova "curl -s http://100.105.14.117:8095/status"`
 2. If model-manager not running:
    - `ssh nova "docker start glm-server"`
    - `ssh nova "docker exec -d glm-server python3 /models/nova_model_manager/model_manager.py --port 8095"`
-3. Generate images **one at a time** (the `--descriptions` flag splits on commas, so avoid commas in prompts):
+3. Generate images **one at a time** with unique slugs:
 ```bash
 cd ~/remotion-fireship && npx ts-node scripts/flux-images.ts \
-  --descriptions "FULL PROMPT WITHOUT COMMAS HERE" \
-  --slug "{slug}" --width 1200 --height 800
+  --descriptions "CONCRETE SUBJECT; specific environment; lighting/color; camera angle; mood" \
+  --slug "{slug}-ch1" --width 1200 --height 800
 ```
-Run this command **twice** with two different prompts to get exactly 2 images.
+Run twice with unique slugs (`-ch1`, `-ch2`) and different prompts.
 
-**Prompt guidelines:**
-- Always specify: "dark background" and accent colors matching the video style
-- Avoid commas — the script splits prompts on commas creating fragments
-- Use colons or semicolons instead of commas for complex prompts
-- Be specific and cinematic: "futuristic server room with glowing GPU racks in dark blue and orange neon light" not "server room"
-- Each image should illustrate a different key concept from the video
+**Flux Prompt Formula:** `[CONCRETE SUBJECT] + [ENVIRONMENT] + [LIGHTING] + [CAMERA] + [MOOD]`
 
-4. Reference in JSON as `"image": "generated/{slug}-0.png"` on ContentScene sections
+**DO:** Lead with a concrete subject (robot, server rack, circuit board). Specify camera angle and lighting. Use semicolons not commas. Always include "dark background".
+
+**DON'T:** Ask Flux to render text. Use vague descriptions ("futuristic concept"). Use commas (script splits on them).
+
+**Good example:** `"humanoid robot standing in dark warehouse; scanning with blue laser beams; amber and blue neon accent lighting; wide angle; cinematic moody"`
+
+**Bad example:** `"cool futuristic AI concept with text saying Claude Code"` — no concrete subject, text won't render
+
+4. Reference in JSON as `"image": "generated/{slug}-ch1-0.png"` on ContentScene sections
 
 If nova is unavailable, skip — the video works with procedural visuals only.
 
@@ -248,41 +251,35 @@ Report output paths, durations, and file sizes for all renders.
 
 ---
 
-## Step 6: Generate Viral Thumbnail via Flux on Nova
+## Step 6: Generate Viral Thumbnail (Flux + Remotion)
 
-**Every video needs a click-worthy thumbnail.** Generate one using Flux.
+**Two-step process:** Flux generates the base image, Remotion overlays styled text.
 
-### 6a. Research viral thumbnail patterns
-Run a quick search to inform the thumbnail concept:
-```
-mcp__tavily__searchQNA — "what makes a viral YouTube thumbnail 2025 2026 best practices"
-```
-
-Key principles to apply:
-- **Bold contrast** — bright subject on dark background
-- **One clear focal point** — don't clutter
-- **Faces or characters with emotion** work best
-- **Implied tension or curiosity** — something unexpected
-- **Readable at small size** — simple composition
-- **Match the video's color palette** (primaryColor + accentColor)
-
-### 6b. Generate the thumbnail
+### 6a. Generate base image with Flux
+Focus on ONE dramatic concrete subject — no text, no clutter:
 ```bash
 cd ~/remotion-fireship && npx ts-node scripts/flux-images.ts \
-  --descriptions "THUMBNAIL PROMPT HERE — bold subject; dark background; high contrast; YouTube thumbnail style; cinematic; {topic} themed" \
+  --descriptions "CONCRETE DRAMATIC SUBJECT; dark background; bold contrast; single focal point; cinematic wide angle; {video accent colors}" \
   --slug "{slug}-thumb" --width 1280 --height 720
 ```
 
-**Prompt tips for thumbnails:**
-- Include the main visual metaphor from the video
-- Specify "YouTube thumbnail composition" in the prompt
-- Use the video's accent colors explicitly
-- Make it dramatic — thumbnails reward exaggeration
-- No commas in the prompt (script splits on commas)
+**Good thumbnail base prompts:**
+- `"close-up of robotic hand typing on glowing keyboard; dark background; amber neon rim lighting; dramatic shallow depth of field"`
+- `"massive glowing brain made of circuit boards; floating in dark void; blue and orange spotlights; cinematic wide shot"`
+- `"developer silhouette against giant glowing monitor; dark room; screen reflecting {primaryColor} light on face; dramatic"`
 
-Output: `public/generated/{slug}-thumb-0.png` (1280x720)
+### 6b. Overlay text with Remotion
+```bash
+npx remotion still src/index.tsx FireshipThumbnail \
+  out/{slug}-thumbnail.png \
+  --props='{"backgroundImage":"generated/{slug}-thumb-0.png","title":"{SHORT PUNCHY TITLE}","subtitle":"{OPTIONAL SUBTITLE}","primaryColor":"{primaryColor}","accentColor":"{accentColor}","textPosition":"bottom-left"}'
+```
 
-Report the thumbnail path so the user can add text overlay in their editor.
+**Text position options:** `"bottom-left"` (default, most viral), `"left"` (side gradient), `"center"` (radial vignette)
+
+**Title tips:** Keep under 4 words. Bold. Curiosity-inducing. Examples: "It Changed Everything", "This Broke GitHub", "The $2.5B Agent"
+
+Output: `out/{slug}-thumbnail.png` (1280x720, ready to upload)
 
 ---
 
