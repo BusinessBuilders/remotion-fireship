@@ -9,6 +9,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import type { SectionProps } from "../schema";
+import { buildEventColors, buildCardGlow } from "../styles/theme";
 import type { ColorMap } from "../styles/theme";
 import { SectionTitle } from "../components/SectionTitle";
 import { AnimatedCode } from "../components/AnimatedCode";
@@ -220,11 +221,19 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
       <ParticleBackground colors={[colors.primary, colors.accent]} count={10} seed={`content-txt-${section.heading}`} opacity={0.2} />
       <GlowOrb colors={[colors.primary, colors.accent]} count={2} seed={`glow-ct-${section.heading}`} intensity={0.05} />
       <FloatingCode color={colors.accent} seed={`float-ct-${section.heading}`} opacity={0.04} />
+      {/* Layered background blobs */}
+      <div style={{ position: "absolute", width: "120%", height: "120%", top: "-20%", right: "-25%", background: `radial-gradient(ellipse at center, ${colors.primary}15 0%, transparent 55%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      <div style={{ position: "absolute", width: "80%", height: "100%", bottom: "-25%", left: "-8%", background: `radial-gradient(ellipse at center, ${colors.accent}0a 0%, transparent 50%)`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      {/* Decorative ring */}
+      <div style={{ position: "absolute", width: 400, height: 400, right: "-3%", top: "-8%", border: `1px solid ${colors.primary}0d`, borderRadius: "50%", pointerEvents: "none" as const }} />
+      {/* Bottom fade */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "12%", background: "linear-gradient(to top, rgba(10,10,26,0.5), transparent)", pointerEvents: "none" as const }} />
       <div
         style={{
           position: "relative",
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
           height: "100%",
           padding: isPortrait ? "50px 50px" : "80px 120px",
           gap: isPortrait ? 24 : 40,
@@ -242,9 +251,10 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
           <div
             style={{
               ...fontRegular,
-              fontSize: isPortrait ? 24 : 32,
-              color: colors.muted,
+              fontSize: isPortrait ? 30 : 42,
+              color: colors.text,
               lineHeight: 1.6,
+              textShadow: '0 2px 8px rgba(0,0,0,0.5)',
             }}
           >
             {animatedBody}
@@ -264,7 +274,7 @@ export const ContentScene: React.FC<ContentSceneProps> = ({
   );
 };
 
-// Staggered bullet list sub-component
+// Glass card bullet list sub-component
 const BulletList: React.FC<{
   items: string[];
   frame: number;
@@ -272,43 +282,67 @@ const BulletList: React.FC<{
   colors: ColorMap;
   fontRegular: CSSProperties;
 }> = ({ items, frame, fps, colors, fontRegular }) => {
+  const eventColors = buildEventColors(colors.primary, colors.accent, items.length);
+  const useGrid = items.length >= 4;
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div
+      style={{
+        display: useGrid ? "grid" : "flex",
+        ...(useGrid
+          ? { gridTemplateColumns: "1fr 1fr", gap: 16 }
+          : { flexDirection: "column" as const, gap: 14 }),
+      }}
+    >
       {items.map((item, i) => {
-        const itemSpring = spring({
+        const cardSpring = spring({
           fps,
-          frame: frame - 30 - i * 8,
+          frame: frame - 25 - i * 6,
           config: { damping: 200 },
         });
-        const itemX = interpolate(itemSpring, [0, 1], [30, 0]);
+        const cardY = interpolate(cardSpring, [0, 1], [20, 0]);
+        const eventColor = eventColors[i];
 
         return (
           <div
             key={i}
             style={{
+              background: `linear-gradient(135deg, ${eventColor}1a, ${colors.secondary}80)`,
+              border: `1px solid ${eventColor}40`,
+              borderRadius: 14,
+              padding: "14px 16px",
               display: "flex",
-              alignItems: "flex-start",
-              gap: 16,
-              opacity: itemSpring,
-              transform: `translateX(${itemX}px)`,
+              gap: 12,
+              alignItems: "center",
+              opacity: cardSpring,
+              transform: `translateY(${cardY}px)`,
+              boxShadow: buildCardGlow(eventColor),
             }}
           >
             <div
               style={{
-                width: 8,
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: colors.primary,
-                marginTop: 10,
+                width: 28,
+                height: 28,
+                borderRadius: 8,
+                background: `${eventColor}30`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 flexShrink: 0,
+                fontSize: 14,
+                color: eventColor,
+                fontWeight: 700,
               }}
-            />
+            >
+              {item.charAt(0).toUpperCase()}
+            </div>
             <div
               style={{
                 ...fontRegular,
-                fontSize: 26,
+                fontSize: 30,
                 color: colors.text,
-                lineHeight: 1.5,
+                lineHeight: 1.4,
+                fontWeight: 500,
               }}
             >
               {item}
