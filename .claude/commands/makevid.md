@@ -57,14 +57,35 @@ Using the research from Step 1, write a complete video JSON to `~/remotion-fires
 - **Every fact, stat, and quote must come from the research** — no placeholder text
 - **Body text should be punchy and concise** — this is a video script, not a blog post
 - **Each section should flow naturally into the next** — tell a story arc:
-  1. Hook (what is it, why should you care)
+  1. **Dopamine Cold Open (MANDATORY — first 2 sections)**
   2. How it works (architecture, mechanism)
   3. Evidence (stats, comparisons)
   4. Context (timeline, quotes from leaders)
   5. Practical (code example, getting started)
   6. Future / takeaway
 
-### Scene Type Mix (aim for 8-10 sections)
+### MANDATORY: Dopamine Cold Open (first 2 sections)
+
+**Every short-form video MUST start with a 2-section cold open (~8 seconds) that spikes curiosity:**
+
+1. **Shock Stat or Bold Claim** (StatsScene or ContentScene, 4s) — The most mind-blowing number OR the most provocative one-liner from your research. Use `glitch` transition. One sentence max. Make them stop scrolling.
+2. **The Tease + Context** (ContentScene, 4s) — Quick context AND a "watch to the end" hook in one breath: "In 50 seconds I'll show you [X]. Stay to the end — [the twist/recommendation]." Use `iris` transition.
+
+**Then the arc continues from section 3 onward.**
+
+**Cold Open voiceover pattern:**
+```
+Section 1: "[Jaw-dropping stat or claim]. Let that sink in."
+Section 2: "In the next 50 seconds you'll see exactly [what]. But watch to the end — [promise]."
+```
+
+**Rules:**
+- Section 1 MUST be a different scene type than section 2 (variety = dopamine)
+- Use `glitch` → `iris` transitions (front-load the energy)
+- Body text is SHORT — 1 sentence max per section
+- Stats/claims must be real facts from research
+
+### Scene Type Mix (aim for 10-12 sections, including 2 cold open sections)
 Use ALL available scene types for visual variety:
 - **ContentScene**: intro text + bullet points (with optional image)
 - **DiagramScene**: architecture/flow diagrams using icons (brain, database, search, cube, robot, code, cloud, api, lock, lightning, server, terminal, git, docker, kubernetes, aws, globe, chart, shield, rocket)

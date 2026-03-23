@@ -119,7 +119,7 @@ async function main() {
   const args = process.argv.slice(2);
   let descriptions: string[] = [];
   let slug = "output";
-  let steps = 15;
+  let steps = 28;
   let width = 1200;
   let height = 800;
 

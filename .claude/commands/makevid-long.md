@@ -12,8 +12,37 @@ Generate a long-form explainer video from a topic name, end-to-end. Unlike `/mak
 
 Each video should feel structurally different. Pick one of these arcs (or let the user choose with `--arc <name>`). **If no arc is specified, randomly select one.**
 
+### MANDATORY: Dopamine Cold Open (ALL arcs start with this)
+
+**Every video MUST begin with a rapid-fire cold open before the arc's first chapter.** This is 3-4 micro-sections in the first ~20 seconds designed to spike curiosity and lock attention. The cold open ends with a "watch to the end" tease.
+
+**Cold Open Formula (4 sections, ~20 seconds total):**
+1. **Shock Stat** (StatsScene, 4s) — The single most mind-blowing number from your research. Pick the stat that makes someone stop scrolling. Use `glitch` transition for maximum impact.
+2. **Bold Claim** (ContentScene, 4s) — One provocative sentence + image. Not the full explanation — just the hook. "X just did Y and nobody is talking about it." Use `flip` transition.
+3. **The Tease** (ContentScene, 3s) — Promise what's coming AND why they should watch to the end: "By the end of this video you'll know exactly [valuable outcome]. But first, the part nobody expected." Use `iris` transition. Body text should include a line like: "Stay to the end — the last section changes everything."
+4. **Quick Context** (ContentScene, 5s) — One paragraph of fast setup so they know what this is about. Use `slide` transition to signal the "real" video starting.
+
+**Cold Open Rules:**
+- Scene types must VARY — never two ContentScenes back-to-back in the cold open
+- Transitions must be HIGH ENERGY — `glitch`, `flip`, `iris` are all used here (front-loading the dramatic transitions)
+- Body text is SHORT — 1-2 sentences max per section, no bullets
+- The voiceover for the Tease section MUST include a "watch to the end" hook — promise a reveal, recommendation, verdict, or surprise in the final sections
+- Cold open stats/claims MUST be real facts from research (no clickbait fabrication)
+
+**Voiceover pattern for Cold Open:**
+```
+Section 1 (Shock Stat): "[Jaw-dropping number]. Let that sink in."
+Section 2 (Bold Claim): "[Topic] just [did something insane]. And [why it matters in one breath]."
+Section 3 (The Tease): "In this video I'll show you [3 things]. But stay to the end — [the verdict/reveal/recommendation] might surprise you."
+Section 4 (Quick Context): "Here's the setup. [2 sentences of fast context]."
+```
+
+After the cold open, the arc's chapters continue as normal (but Chapter 1 is now effectively Chapter 2 since the cold open IS the hook).
+
+---
+
 ### Arc A: "Deep Dive" (default analytical style)
-1. **Chapter: The Hook** — ContentScene (what is it + image) → StatsScene (why it matters)
+1. **Cold Open** (see above — 4 rapid sections)
 2. **Chapter: How It Works** — DiagramScene (architecture) → ContentScene (key concepts) → CodeScene (core mechanism) → ContentScene (deeper detail + image)
 3. **Chapter: In Practice** — ComparisonScene (vs alternatives) → CodeScene (real-world usage) → ContentScene (lessons learned)
 4. **Chapter: The Story** — TimelineScene (history) → QuoteScene (industry voice)
@@ -21,7 +50,7 @@ Each video should feel structurally different. Pick one of these arcs (or let th
 6. **Chapter: What's Next** — ContentScene (future outlook)
 
 ### Arc B: "Origin Story" (narrative-driven)
-1. **Chapter: The Problem** — QuoteScene (provocative opening) → ContentScene (the pain point + image)
+1. **Cold Open** (see above — 4 rapid sections)
 2. **Chapter: Before** — TimelineScene (failed attempts / prior art) → ContentScene (why they fell short)
 3. **Chapter: The Breakthrough** — ContentScene (the insight + image) → DiagramScene (new architecture) → CodeScene (how it works)
 4. **Chapter: Proof** — StatsScene (adoption/performance) → ComparisonScene (before vs after) → CodeScene (real example)
@@ -29,7 +58,7 @@ Each video should feel structurally different. Pick one of these arcs (or let th
 6. **Chapter: Impact** — QuoteScene (leader's perspective) → ContentScene (future + image)
 
 ### Arc C: "Builder" (tutorial-flavored)
-1. **Chapter: Why This Matters** — ContentScene (problem statement + image) → StatsScene (market context)
+1. **Cold Open** (see above — 4 rapid sections)
 2. **Chapter: Foundations** — DiagramScene (architecture overview) → CodeScene (hello world) → ContentScene (core concepts)
 3. **Chapter: Building** — CodeScene (step 1) → ContentScene (explain + image) → CodeScene (step 2) → ContentScene (explain)
 4. **Chapter: Advanced** — DiagramScene (advanced architecture) → CodeScene (advanced pattern) → ComparisonScene (approaches)
@@ -37,7 +66,7 @@ Each video should feel structurally different. Pick one of these arcs (or let th
 6. **Chapter: Ecosystem** — TimelineScene (roadmap) → ContentScene (resources + image)
 
 ### Arc D: "Debate" (contrarian/tension-driven)
-1. **Chapter: The Controversy** — QuoteScene (bold claim) → ContentScene (the tension + image)
+1. **Cold Open** (see above — 4 rapid sections, Shock Stat should be the most controversial number)
 2. **Chapter: The Case For** — ContentScene (arguments + bullets) → CodeScene (strengths demo) → StatsScene (supporting data)
 3. **Chapter: The Case Against** — ContentScene (counterarguments + image) → CodeScene (pain points) → StatsScene (counter data)
 4. **Chapter: The Reality** — ComparisonScene (head to head) → DiagramScene (actual architecture) → ContentScene (nuanced take)
@@ -98,17 +127,25 @@ Write to `~/remotion-fireship/data/videos/{slug}.json`.
 - **Body text should be punchy and concise** — video script, not blog post
 - **Sections flow naturally** — each chapter tells a mini-story within the larger arc
 
-### Section Count: 15-20 sections
-Follow the selected arc pattern. Scene types CAN repeat — a long video should have:
-- **3-4 ContentScenes** (with images where possible)
+### Section Count: 18-22 sections (including 4 cold open sections)
+Follow the selected arc pattern. The first 4 sections are ALWAYS the cold open. Scene types CAN repeat — a long video should have:
+- **4-5 ContentScenes** (with images where possible)
 - **2-3 CodeScenes** (different aspects: intro, usage, advanced)
 - **2 DiagramScenes** (overview architecture + detailed internals)
-- **1-2 StatsScenes**
+- **2 StatsScenes** (one in cold open, one in the body)
 - **1-2 QuoteScenes** (different people — use sparingly for impact)
 - **1 TimelineScene**
 - **1 ComparisonScene**
 
-### Timing (longer than /makevid)
+### Timing
+
+**Cold Open (first ~20 seconds — FAST pacing):**
+- Shock Stat: **4 seconds** (just enough to read the numbers)
+- Bold Claim: **4 seconds** (one sentence + image)
+- The Tease: **3 seconds** (promise + "watch to the end")
+- Quick Context: **5 seconds** (fast setup)
+
+**Body sections (after cold open — normal pacing):**
 - ContentScenes with bullets: **7-8 seconds**
 - ContentScenes with image (no bullets): **6-7 seconds**
 - CodeScenes: **8-10 seconds** (viewer needs time to read)
@@ -170,6 +207,18 @@ The voiceover should:
 - Maintain energy across 2-4 minutes — vary pacing (faster for excitement, slower for code/diagrams)
 - Include verbal chapter markers that feel natural, not forced
 - Reference on-screen visuals ("as you can see in this diagram...")
+
+**Cold Open voiceover is CRITICAL — follow this pattern:**
+- Section 1 (Shock Stat): Deliver the number fast, then pause beat: "[Number]. Let that sink in."
+- Section 2 (Bold Claim): One breath, maximum impact: "[Subject] just [did X]. And it changes everything."
+- Section 3 (The Tease): THIS IS THE RETENTION HOOK — promise 2-3 things they'll learn, then: "But stay to the end — [the verdict/recommendation/twist] might change how you think about this." or "Watch all the way through — the last part is what actually matters."
+- Section 4 (Quick Context): Fast context dump, 2 sentences max, then transition: "Let me break it down."
+
+**"Watch to the end" hook examples:**
+- "Stay to the end — my recommendation might surprise you."
+- "But the last section changes everything."
+- "Watch through to the verdict — it's not what you'd expect."
+- "The ending has the one thing nobody is talking about."
 
 ---
 
@@ -417,7 +466,9 @@ Save to `data/videos/{slug}-description.md` and display the full description to 
 - Working directory: `~/remotion-fireship`
 - **If `data/videos/current.md` exists, it's the primary source** — follow its structure closely, use Tavily only for gap-filling
 - **Research first, write second** — never use placeholder content
-- **15-20 sections** grouped into 5-6 logical chapters
+- **ALWAYS start with the Dopamine Cold Open** — 4 rapid-fire sections (StatsScene → ContentScene → ContentScene → ContentScene) with `glitch`→`flip`→`iris`→`slide` transitions
+- **Section 3 (The Tease) MUST include a "watch to the end" hook** — promise a reveal, recommendation, or surprise in the final sections
+- **18-22 sections** grouped into Cold Open + 5-6 logical chapters
 - **2-4 minutes total** (120-240 seconds)
 - Scene types CAN and SHOULD repeat (multiple CodeScenes, ContentScenes)
 - **Randomly select an arc** if user doesn't specify one — variety is the point
